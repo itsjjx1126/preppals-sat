@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Support — PrepPals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0B1330; --navy2:#1B2D6B; --pink:#E8237A; --pink2:#FF4FA3;
+  --card:#131B3A; --border:rgba(255,255,255,.08);
+  --text:#F4F5FA; --t2:#B8BEDC; --t3:#7B84AD;
+  --font:'Space Grotesk',sans-serif; --mono:'Space Mono',monospace;
+}
+*,::before,::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--font);
+  background:linear-gradient(160deg,#080D1A 0%,#0F1533 40%,#1B2D6B 75%,#3A1140 100%);
+  color:var(--text);min-height:100vh;
+}
+.wrap{max-width:760px;margin:0 auto;padding:64px 24px 96px}
+.logo,.logo:link,.logo:visited,.logo:hover,.logo:active{
+  font-family:'Space Mono',monospace;font-size:18px;font-weight:700;letter-spacing:-0.5px;
+  background:linear-gradient(120deg,#1B2D6B 0%,#E8237A 100%);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;display:inline-block;text-decoration:none;
+}
+.eyebrow{font-family:var(--mono);font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:40px}
+h1{font-size:36px;font-weight:700;letter-spacing:-1px;margin-bottom:12px}
+.sub{color:var(--t2);font-size:16px;line-height:1.6;margin-bottom:40px;max-width:520px}
+.contact-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:28px 30px;margin-bottom:48px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.contact-icon{
+  width:52px;height:52px;border-radius:14px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--navy2),var(--pink));
+  display:flex;align-items:center;justify-content:center;
+}
+.contact-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:2;fill:none}
+.contact-text h3{font-size:15px;font-weight:600;margin-bottom:4px;color:var(--t2)}
+.contact-text a{color:#fff;font-size:19px;font-weight:600;text-decoration:none}
+.contact-text a:hover{text-decoration:underline}
+.contact-note{font-size:13px;color:var(--t3);margin-top:4px}
+h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--t3);margin:44px 0 18px}
+.faq{border-top:1px solid var(--border)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item h3{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.faq-item p{font-size:14.5px;color:var(--t2);line-height:1.65}
+.faq-item a{color:#9CB4FF}
+footer{margin-top:60px;padding-top:28px;border-top:1px solid var(--border);
+  display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--t3)}
+footer a{color:var(--t3);text-decoration:none}
+footer a:hover{color:var(--t2);text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="https://getpreppals.com" class="logo">PREPPALS</a>
+  <div class="eyebrow">Support Center</div>
+
+  <h1>We're here to help</h1>
+  <p class="sub">Have a question, ran into a bug, or need help with your account? Reach out and we'll get back to you as soon as we can.</p>
+
+  <div class="contact-card">
+    <div class="contact-icon">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+    </div>
+    <div class="contact-text">
+      <h3>Email us directly</h3>
+      <a href="mailto:support@preppals.app">support@preppals.app</a>
+      <div class="contact-note">We typically respond within 1–2 business days.</div>
+    </div>
+  </div>
+
+  <h2>Common Questions</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h3>How do I reset my password?</h3>
+      <p>On the sign-in screen, tap "Contact support" below the sign-in button, or email us at <a href="mailto:support@preppals.app">support@preppals.app</a> and we'll send you a reset link.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I report or block another user?</h3>
+      <p>From a profile card or an open chat, tap the "…" (more options) icon to report a user, or use the Unmatch button in a chat to block someone. Reports are reviewed by our team.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I delete my account?</h3>
+      <p>Go to Profile → Delete My Account. This removes your profile and personal data. If you'd like your account restored afterward, email us within a reasonable time and we can help.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why wasn't my SAT score report accepted?</h3>
+      <p>Score reports are verified against your profile name and must be an official College Board score report (PDF or clear image). If a real report keeps getting rejected, email us a copy and we'll take a look.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is my information kept private?</h3>
+      <p>Only your first name and last initial are shown to other users. Full details are in our <a href="/privacy.html">Privacy Policy</a>.</p>
+    </div>
+  </div>
+
+  <footer>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="mailto:support@preppals.app">support@preppals.app</a>
+  </footer>
+</div>
+</body>
+</html>

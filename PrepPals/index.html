@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,interactive-widget=resizes-content"/>
+<title>PrepPals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   PrepPals FINAL — Design System
+   Brand gradient: Deep Navy #1B2D6B → Hot Pink #E8237A
+   English / Reading  → BLUE  (#1B2D6B, #2B47D9)
+   Math               → PINK  (#E8237A, #FF4FA3)
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#1B2D6B; --navy2:#2B47D9; --navy-s:#EBF0FF; --navy-b:#C5D0F5;
+  --pink:#E8237A; --pink2:#FF4FA3; --pink-s:#FFEBF4; --pink-b:#F7A8CF;
+  --bg:#F4F5FA; --card:#FFFFFF; --card2:#F8F9FD;
+  --text:#111827; --t2:#4B5563; --t3:#9CA3AF;
+  --bdr:#E5E7EB; --bdr2:#D1D5DB;
+  --sh:0 2px 12px rgba(0,0,0,.07); --sh2:0 8px 32px rgba(0,0,0,.13);
+  --match:#22C55E; --match-s:#DCFCE7;
+  --danger:#EF4444; --danger-s:#FEF2F2;
+  --r:18px; --r2:13px; --r3:9px;
+  --font:'DM Sans',sans-serif; --serif:'DM Serif Display',serif;
+  --safe:env(safe-area-inset-bottom,0px);
+}
+*,::before,::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;font-family:var(--font);background:#0C1024}
+#root{height:100%;display:flex;justify-content:center;align-items:center;
+  background:linear-gradient(145deg,#080D1A 0%,#1B2D6B 40%,#6B0E3D 72%,#E8237A 100%)}
+.phone{width:390px;height:844px;background:var(--bg);border-radius:46px;overflow:hidden;
+  box-shadow:0 0 0 10px #060A15,0 0 0 12px #111827,0 40px 100px rgba(0,0,0,.65);
+  display:flex;flex-direction:column;position:relative}
+
+/* STATUS BAR */
+.sb{height:54px;background:var(--bg);display:flex;align-items:flex-end;
+  justify-content:space-between;padding:0 28px 8px;flex-shrink:0;z-index:20;position:relative}
+.sb-t{font-size:15px;font-weight:600;letter-spacing:-.3px}
+.sb-i{display:flex;gap:5px;align-items:center}
+.sb-i svg{width:15px;height:15px;fill:var(--text)}
+
+/* NAV */
+.nav{background:rgba(244,245,250,.96);backdrop-filter:blur(24px);
+  border-top:1px solid var(--bdr);display:flex;align-items:stretch;
+  padding:0 8px calc(var(--safe) + 4px);flex-shrink:0;z-index:20;position:relative}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:10px 4px 4px;cursor:pointer;font-size:10.5px;font-weight:500;
+  color:var(--t3);border:none;background:none;transition:color .2s}
+.nb.on{color:var(--navy2)}
+.nb svg{width:23px;height:23px;stroke-width:1.8;fill:none;stroke:currentColor}
+.nb.on svg{stroke:var(--navy2)}
+.scr{flex:1;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+
+/* ── AUTH ── */
+.aw{flex:1;overflow-y:auto;padding:28px 22px 0;display:flex;flex-direction:column;min-height:0}
+.logo{font-family:var(--serif);font-size:40px;letter-spacing:-1px}
+.logo-g{background:linear-gradient(130deg,var(--navy) 0%,var(--pink) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tagline{font-size:13px;color:var(--t2);margin:4px 0 20px;line-height:1.5}
+.lbl{font-size:12px;font-weight:500;color:var(--t2);margin-bottom:4px;display:block}
+.inp{width:100%;padding:11px 13px;border-radius:11px;border:1.5px solid var(--bdr);
+  background:var(--card);font-size:14px;font-family:var(--font);color:var(--text);
+  outline:none;transition:border-color .2s}
+.inp:focus{border-color:var(--navy2)}
+.inp-err{border-color:#ef4444!important}
+.ig{margin-bottom:11px}
+.btn-p{width:100%;padding:13px;border-radius:12px;border:none;
+  background:linear-gradient(130deg,var(--navy2) 0%,var(--pink) 100%);
+  color:#fff;font-size:15px;font-weight:600;cursor:pointer;
+  font-family:var(--font);transition:opacity .15s;margin-top:5px}
+.btn-p:disabled{opacity:.4;cursor:default}
+.btn-p:active{opacity:.82}
+.asw{text-align:center;margin-top:11px;font-size:13px;color:var(--t2)}
+.asw button{background:none;border:none;color:var(--navy2);font-weight:600;
+  cursor:pointer;font-family:var(--font);font-size:13px}
+.email-warn{font-size:11px;color:var(--t2);margin-top:6px;line-height:1.5}
+.support-link{color:#3b82f6;text-decoration:none;font-weight:500}
+.support-link:hover{text-decoration:underline}
+.aerr{background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;
+  padding:9px 13px;font-size:12.5px;color:var(--danger);margin-bottom:10px}
+
+/* CONSENT CHECKBOXES */
+.con-block{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.con-row{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;
+  background:var(--card);border:1.5px solid var(--bdr);border-radius:10px;cursor:pointer}
+.con-row.ck{border-color:var(--match)}
+.con-box{width:19px;height:19px;border-radius:5px;border:2px solid var(--bdr2);
+  flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;
+  background:#fff;transition:all .15s}
+.con-row.ck .con-box{background:var(--match);border-color:var(--match)}
+.con-box svg{width:11px;height:11px;stroke:#fff;stroke-width:2.5;fill:none;opacity:0}
+.con-row.ck .con-box svg{opacity:1}
+.con-txt{font-size:12px;color:var(--t2);line-height:1.5}
+.con-txt strong{color:var(--text);font-weight:500}
+
+/* VERIFY GATE */
+.vgate{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:28px 22px}
+.vgate-icon{font-size:52px;margin-bottom:14px}
+.vgate h2{font-size:21px;font-weight:600;margin-bottom:10px}
+.vgate-box{background:var(--navy-s);border:1.5px solid var(--navy-b);border-radius:12px;
+  padding:14px;font-size:13px;color:var(--navy);line-height:1.6;text-align:left;margin-bottom:14px}
+.vgate p{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:18px}
+
+/* ONBOARD */
+.ob{flex:1;overflow-y:auto;padding:18px 20px;min-height:0}
+.ob-step{font-size:10.5px;color:var(--t3);font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.ob-title{font-size:22px;font-weight:600;letter-spacing:-.4px;margin:3px 0 4px}
+.ob-sub{font-size:13px;color:var(--t2);margin-bottom:16px;line-height:1.5}
+.back-t{width:100%;padding:10px;border:none;background:none;color:var(--t2);
+  font-size:13px;cursor:pointer;margin-top:5px;font-family:var(--font)}
+
+/* AVATAR GRID */
+.av-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;width:100%}
+.av-opt{border-radius:14px;border:2.5px solid var(--bdr);background:var(--card);
+  padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;transition:all .18s}
+.av-opt.on{border-color:var(--navy2);background:var(--navy-s)}
+.av-opt img{width:64px;height:64px;border-radius:50%;object-fit:cover;background:var(--bdr)}
+.av-opt span{font-size:11px;font-weight:500;color:var(--t2)}
+.av-opt.on span{color:var(--navy2)}
+
+/* GRADE STEPPER */
+.grade-step{display:flex;align-items:center;gap:13px;margin-top:3px}
+.step-btn{width:38px;height:38px;border-radius:9px;border:1.5px solid var(--bdr);
+  background:var(--card);font-size:20px;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-weight:300;color:var(--text);transition:all .15s}
+.step-btn:disabled{opacity:.35;cursor:default}
+.step-btn:active{background:var(--bdr)}
+.grade-val{font-size:19px;font-weight:600;min-width:38px;text-align:center}
+
+/* SLIDERS — blue/pink themed */
+.sl-g{margin-bottom:15px}
+.sl-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.sl-lbl{font-size:13px;font-weight:500;color:var(--t2)}
+.sl-v-b{font-size:13.5px;font-weight:700;color:var(--navy2);background:var(--navy-s);
+  padding:2px 11px;border-radius:20px}
+.sl-v-p{font-size:13.5px;font-weight:700;color:var(--pink);background:var(--pink-s);
+  padding:2px 11px;border-radius:20px}
+.sl-marks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--t3);margin-top:3px}
+
+/* Blue slider */
+input[type=range].sl-b{width:100%;-webkit-appearance:none;appearance:none;
+  height:5px;border-radius:3px;outline:none;cursor:pointer;
+  background:linear-gradient(to right,var(--navy2) 0%,var(--navy2) var(--pct,50%),var(--bdr2) var(--pct,50%),var(--bdr2) 100%)}
+input[type=range].sl-b::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;
+  border-radius:50%;background:var(--navy2);box-shadow:0 2px 8px rgba(43,71,217,.35);cursor:pointer}
+input[type=range].sl-b::-moz-range-thumb{width:22px;height:22px;border-radius:50%;
+  background:var(--navy2);border:none;cursor:pointer}
+
+/* Pink slider */
+input[type=range].sl-p{width:100%;-webkit-appearance:none;appearance:none;
+  height:5px;border-radius:3px;outline:none;cursor:pointer;
+  background:linear-gradient(to right,var(--pink) 0%,var(--pink) var(--pct,50%),var(--bdr2) var(--pct,50%),var(--bdr2) 100%)}
+input[type=range].sl-p::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;
+  border-radius:50%;background:var(--pink);box-shadow:0 2px 8px rgba(232,35,122,.35);cursor:pointer}
+input[type=range].sl-p::-moz-range-thumb{width:22px;height:22px;border-radius:50%;
+  background:var(--pink);border:none;cursor:pointer}
+
+/* CHIP GRID */
+.chip-g{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:15px;width:100%}
+.chip{padding:7px 13px;border-radius:20px;border:1.5px solid var(--bdr);background:var(--card);
+  font-size:12.5px;font-weight:500;color:var(--text);cursor:pointer;font-family:var(--font);transition:all .14s}
+.chip.on{border-color:var(--navy2);background:var(--navy-s);color:var(--navy2)}
+
+/* SAT UPLOAD */
+.up-z{border:2px dashed var(--bdr2);border-radius:12px;padding:18px;text-align:center;
+  cursor:pointer;transition:all .2s;position:relative;margin-top:4px}
+.up-z:hover,.up-z.drag{border-color:var(--navy2);background:var(--navy-s)}
+.up-z input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.up-z svg{width:32px;height:32px;stroke:var(--t3);stroke-width:1.5;fill:none;margin:0 auto 7px;display:block}
+.up-z p{font-size:13.5px;font-weight:500;color:var(--t2)}
+.up-z small{font-size:11.5px;color:var(--t3)}
+.up-err{background:#FEF2F2;border:1px solid #FCA5A5;border-radius:9px;padding:9px 13px;font-size:12.5px;color:var(--danger);margin-bottom:8px}
+.up-ok{background:var(--match-s);border:1px solid var(--match);border-radius:9px;padding:9px 13px;font-size:12.5px;color:#166534;margin-bottom:8px}
+.up-proc{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--navy-s);border-radius:9px;font-size:12.5px;color:var(--navy2);margin-bottom:8px}
+.up-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.up-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--match-s);border-radius:9px}
+.up-item-ico{width:24px;height:24px;border-radius:50%;background:var(--match);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.up-item-ico svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none}
+.up-item-nm{font-size:12.5px;font-weight:500;color:var(--text)}
+.up-item-sc{font-size:11.5px;color:var(--t2)}
+
+/* DISCOVER SCREEN */
+.dh{padding:13px 18px 9px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.app-logo{font-family:var(--serif);font-size:24px;letter-spacing:-.5px}
+.app-logo span{background:linear-gradient(130deg,var(--navy) 0%,var(--pink) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.icon-btn{width:37px;height:37px;border-radius:50%;background:var(--card);
+  border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .14s}
+.icon-btn:active{transform:scale(.93)}
+.icon-btn svg{width:18px;height:18px;fill:none;stroke:var(--t2);stroke-width:1.8}
+
+/* CATEGORY TABS */
+.cat-tabs{display:flex;gap:8px;padding:0 18px 9px;flex-shrink:0}
+.ct{flex:1;padding:9px 0;border-radius:11px;border:1.5px solid var(--bdr);
+  background:var(--card);font-size:13.5px;font-weight:600;
+  color:var(--t2);cursor:pointer;text-align:center;font-family:var(--font);transition:all .17s}
+.ct.blue-on{border-color:var(--navy2);background:var(--navy-s);color:var(--navy2)}
+.ct.pink-on{border-color:var(--pink);background:var(--pink-s);color:var(--pink)}
+.rt-row{display:flex;align-items:center;gap:5px;padding:0 18px 7px;font-size:11px;color:var(--t3);flex-shrink:0}
+.rt-dot{width:6px;height:6px;border-radius:50%;background:var(--match);flex-shrink:0}
+.rt-dot.off{background:var(--danger)}
+
+/* CARD STACK */
+.disc-search-row{display:flex;align-items:center;gap:8px;padding:0 16px;margin-bottom:8px}
+.disc-search{flex:1;padding:9px 14px;border-radius:50px;border:1.5px solid var(--bdr);background:var(--card);font-size:13px;color:var(--tx);outline:none}
+.disc-search:focus{border-color:var(--navy2)}
+.bk-filter-btn{padding:8px 14px;border-radius:50px;border:1.5px solid var(--bdr);background:var(--card);font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;white-space:nowrap;transition:all .2s}
+.bk-filter-btn.on{background:var(--navy2);color:#fff;border-color:var(--navy2)}
+.card-stack{flex:1;position:relative;overflow:hidden;margin:0 16px;min-height:0}
+.cslot{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.pcard{width:100%;height:100%;background:var(--card);border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh2);transition:transform .3s cubic-bezier(.22,.68,0,1.2),opacity .3s;position:relative;z-index:2;display:flex;flex-direction:column}
+.pcard.behind{position:absolute;top:50%;left:50%;transform:translate(-50%,calc(-50% + 6px)) scale(.97);z-index:1;pointer-events:none;width:100%}
+.pcard.skip-anim{transform:translateX(-120%) rotate(-15deg)!important;opacity:0!important}
+.pcard.heart-anim{transform:translateX(120%) rotate(15deg)!important;opacity:0!important}
+
+/* CARD AVATAR AREA */
+.cav-area{flex:1;min-height:0;position:relative;overflow:hidden}
+.cav-area img{width:100%;height:100%;object-fit:cover}
+.cav-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:68px;color:rgba(255,255,255,.4)}
+.c-grade{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.55);border-radius:18px;
+  padding:4px 10px;font-size:11.5px;font-weight:500;color:#fff}
+.c-sbadge{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);border-radius:24px;padding:5px 11px;font-size:12.5px;font-weight:600;color:var(--text)}
+.c-bk{position:absolute;bottom:10px;right:11px;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.9);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center}
+.c-bk svg{width:15px;height:15px;stroke:var(--t2);stroke-width:2;fill:none;transition:all .14s}
+.c-bk.on svg{stroke:var(--pink);fill:var(--pink)}
+
+/* STAMPS */
+.stamp{position:absolute;top:35px;border-radius:8px;padding:3px 11px;
+  font-size:20px;font-weight:700;text-transform:uppercase;
+  opacity:0;transition:opacity .14s;pointer-events:none;z-index:10}
+.stamp-like{left:16px;border:3px solid var(--match);color:var(--match);transform:rotate(-18deg)}
+.stamp-pass{right:16px;border:3px solid var(--danger);color:var(--danger);transform:rotate(18deg)}
+
+/* CARD BODY */
+.cbody{padding:13px 15px 15px}
+.cname{font-size:20px;font-weight:600;letter-spacing:-.4px;margin-bottom:3px}
+.cbio{font-size:13px;color:var(--t2);line-height:1.5;margin-bottom:9px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.score-pills{display:flex;gap:7px;margin-bottom:9px}
+.spill{flex:1;padding:7px 9px;border-radius:10px;text-align:center}
+.spill-lbl{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:1px}
+.spill-val{font-size:15px;font-weight:700}
+.spill.blue{background:var(--navy-s);color:var(--navy2)}
+.spill.blue .spill-lbl{color:var(--navy2)}
+.spill.pink{background:var(--pink-s);color:var(--pink)}
+.spill.pink .spill-lbl{color:var(--pink)}
+.spill.nosat{background:var(--card2);color:var(--t3);flex:1.6}
+.spill.nosat .spill-val{font-size:11px;line-height:1.4;font-weight:500}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:14px;
+  display:flex;align-items:center;gap:3px}
+.tag svg{width:10px;height:10px;stroke-width:2.2;stroke:currentColor;fill:none}
+.tag.str{background:#DCFCE7;color:#166534}
+.tag.wk{background:#FEF9C3;color:#854D0E}
+
+/* ACTION ROW */
+.act-row{display:flex;gap:11px;justify-content:center;padding:0 16px 13px;flex-shrink:0}
+.act-btn{border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:var(--sh);transition:all .14s;flex-shrink:0}
+.act-btn:active{transform:scale(.90)}
+.btn-skip{width:58px;height:58px;background:var(--card)}
+.btn-skip svg{width:26px;height:26px;stroke:#999;stroke-width:2;fill:none}
+.btn-more{width:44px;height:44px;background:var(--card)}
+.btn-more svg{width:18px;height:18px;stroke:var(--t2);stroke-width:2;fill:none}
+.btn-hrt{width:58px;height:58px;background:linear-gradient(135deg,var(--navy2),var(--pink))}
+.btn-hrt svg{width:26px;height:26px;fill:#fff;stroke:none}
+
+/* EMPTY / LOADING */
+.empty-s{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:36px 26px;text-align:center;gap:9px}
+.empty-s svg{width:50px;height:50px;stroke:var(--t3);stroke-width:1.2;fill:none}
+.empty-s h3{font-size:18px;font-weight:600;color:var(--text)}
+.empty-s p{font-size:13px;color:var(--t2);line-height:1.6}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--pink);animation:pulse 1.4s ease infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
+.loading-s{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.spinner{width:26px;height:26px;border:2.5px solid var(--bdr);
+  border-top-color:var(--navy2);border-radius:50%;animation:spin .72s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-s p{font-size:13px;color:var(--t2)}
+
+/* MATCHES LIST */
+.mhdr{padding:13px 18px 9px;flex-shrink:0}
+.mhdr-top{display:flex;justify-content:space-between;align-items:baseline}
+.mhdr-title{font-size:19px;font-weight:600;letter-spacing:-.4px}
+.mhdr-ct{font-size:11.5px;color:var(--t3)}
+.m-subtabs{display:flex;gap:6px;padding:0 16px 9px;flex-shrink:0}
+.mst{flex:1;padding:7px 0;border-radius:9px;border:1.5px solid var(--bdr);
+  background:var(--card);font-size:12.5px;font-weight:600;color:var(--t2);
+  cursor:pointer;text-align:center;font-family:var(--font);transition:all .15s}
+.mst.on{border-color:var(--navy2);background:var(--navy-s);color:var(--navy2)}
+.mst.arch-on{border-color:var(--t3);background:var(--card2);color:var(--t2)}
+.mlist{flex:1;overflow-y:auto;padding:0 14px 12px;min-height:0}
+.mrow{display:flex;align-items:center;gap:11px;padding:10px 5px;
+  border-bottom:1px solid var(--bdr);cursor:pointer;transition:background .13s;border-radius:9px}
+.mrow:active{background:var(--card2)}
+.mav-wrap{width:48px;height:48px;flex-shrink:0;position:relative;}
+.mav{width:48px;height:48px;border-radius:50%;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:17px;color:rgba(255,255,255,.7);
+  background:linear-gradient(135deg,var(--navy),var(--pink))}
+.mav img{width:100%;height:100%;object-fit:cover}
+.odot{position:absolute;bottom:2px;right:2px;width:9px;height:9px;
+  border-radius:50%;background:var(--match);border:2px solid var(--bg)}
+.odot.off{background:#9ca3af}
+.minf{flex:1;min-width:0}
+.mname{font-size:14.5px;font-weight:600;margin-bottom:2px}
+.mmsg{font-size:12.5px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mtime{font-size:10.5px;color:var(--t3);flex-shrink:0}
+.arch-badge{font-size:10px;font-weight:600;color:var(--t3);background:var(--card2);
+  border-radius:10px;padding:2px 7px}
+
+/* CHAT */
+.chdr{padding:10px 14px;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--bdr);flex-shrink:0;background:var(--bg)}
+.back-btn{width:33px;height:33px;border-radius:50%;background:var(--card);
+  border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.back-btn svg{width:16px;height:16px;stroke:var(--text);stroke-width:2;fill:none}
+.chdr-av{width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  background:linear-gradient(135deg,var(--navy),var(--pink));
+  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;color:rgba(255,255,255,.7)}
+.chdr-av img{width:100%;height:100%;object-fit:cover}
+.chdr-name{font-size:15px;font-weight:600;color:var(--text)}
+.chdr-sub{font-size:11.5px;color:var(--match)}
+.chdr-sub.arch{color:var(--t3)}
+.chdr-unmatch{margin-left:auto;font-size:12px;font-weight:500;color:var(--danger);
+  background:var(--danger-s);border:1px solid #FCA5A5;border-radius:8px;
+  padding:5px 10px;cursor:pointer;flex-shrink:0;font-family:var(--font)}
+.cmsgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:8px;min-height:0}
+.msg{max-width:76%;padding:9px 13px;border-radius:17px;font-size:13.5px;line-height:1.5;word-break:break-word}
+.msg-out{background:linear-gradient(130deg,var(--navy2),var(--pink));color:#fff;
+  border-bottom-right-radius:4px;align-self:flex-end}
+.msg-in{background:var(--card);color:var(--text);border-bottom-left-radius:4px;
+  align-self:flex-start;box-shadow:var(--sh)}
+.msg-t{font-size:10px;opacity:.55;margin-top:2px;text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:3px}
+.msg-in .msg-t{text-align:left;justify-content:flex-start}
+.msg-status{font-size:10px;opacity:.7}
+.sys-msg{align-self:center;font-size:11.5px;color:var(--t3);background:var(--card2);
+  border-radius:18px;padding:4px 12px;text-align:center}
+.arch-banner{display:flex;align-items:center;gap:7px;background:#F9FAFB;
+  border:1px solid var(--bdr);border-radius:10px;padding:9px 13px;margin:10px;flex-shrink:0;font-size:12.5px;color:var(--t2)}
+.arch-banner svg{width:15px;height:15px;stroke:var(--t3);stroke-width:2;fill:none;flex-shrink:0}
+.cinp-bar{display:flex;align-items:center;gap:7px;padding:8px 12px;
+  border-top:1px solid var(--bdr);background:var(--bg);flex-shrink:0;
+  padding-bottom:calc(8px + var(--safe))}
+.cinp{flex:1;background:var(--card);border:1px solid var(--bdr);border-radius:20px;
+  padding:9px 14px;font-size:14px;font-family:var(--font);color:var(--text);outline:none;height:40px}
+.cinp:focus{border-color:var(--navy-b)}
+.csend{width:38px;height:38px;border-radius:50%;border:none;
+  background:linear-gradient(135deg,var(--navy2),var(--pink));
+  display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .14s}
+.csend:active{transform:scale(.90)}
+.csend svg{width:16px;height:16px;fill:#fff;stroke:none}
+.csend:disabled{background:var(--bdr2);cursor:default}
+
+/* PROFILE/SETTINGS */
+.profs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
+.prof-hero{height:155px;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--pink) 100%);
+  position:relative;display:flex;align-items:flex-end;padding:13px 17px}
+.prof-av{width:70px;height:70px;border-radius:50%;overflow:hidden;
+  border:3px solid rgba(255,255,255,.65);flex-shrink:0;
+  background:rgba(255,255,255,.2);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:25px;color:rgba(255,255,255,.75)}
+.prof-av img{width:100%;height:100%;object-fit:cover}
+.prof-name{font-size:20px;font-weight:600;color:#fff;letter-spacing:-.4px;margin-left:12px;
+  text-shadow:0 1px 4px rgba(0,0,0,.22)}
+.pbody{padding:15px 17px}
+.sec-lbl{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:9px;margin-top:3px}
+.icard{background:var(--card);border-radius:var(--r2);border:1px solid var(--bdr);overflow:visible;margin-bottom:13px}
+.irow{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--bdr)}
+.irow:last-child{border-bottom:none}
+.irow-lbl{font-size:13px;color:var(--t2);display:flex;align-items:center;gap:7px}
+.irow-lbl svg{width:15px;height:15px;stroke:var(--t3);stroke-width:1.8;fill:none}
+.irow-val{font-size:13px;font-weight:500;color:var(--text)}
+
+/* iOS TOGGLE */
+.ios-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px}
+.ios-lbl-title{font-size:14px;font-weight:500;color:var(--text)}
+.ios-lbl-sub{font-size:12px;color:var(--t3);margin-top:1px}
+.ios-tog{position:relative;width:51px;height:31px;flex-shrink:0}
+.ios-tog input{opacity:0;width:0;height:0;position:absolute}
+.ios-track{position:absolute;inset:0;background:#ccc;border-radius:31px;cursor:pointer;
+  transition:background .24s cubic-bezier(.4,0,.2,1)}
+.ios-tog input:checked + .ios-track{background:var(--match)}
+.ios-thumb{position:absolute;top:3px;left:3px;width:25px;height:25px;border-radius:50%;
+  background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.22);
+  transition:transform .24s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.ios-tog input:checked ~ .ios-thumb{transform:translateX(20px)}
+
+/* FILTER PIPS */
+.filt-pips{display:flex;gap:5px;margin-top:7px}
+.fp{flex:1;height:4px;border-radius:2px;background:var(--bdr2);transition:background .14s}
+.fp.on{background:var(--navy2)}
+
+/* SAVE/ACTION BUTTONS */
+.save-btn{width:100%;padding:13px;border-radius:12px;border:none;
+  background:linear-gradient(130deg,var(--navy2),var(--pink));color:#fff;
+  font-size:15px;font-weight:600;cursor:pointer;margin-top:7px;font-family:var(--font)}
+.save-btn:active{opacity:.85}
+.so-btn{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bdr);
+  background:var(--card);font-size:14px;font-weight:500;color:var(--t2);
+  cursor:pointer;margin-top:7px;font-family:var(--font)}
+.del-btn{width:100%;padding:12px;border-radius:12px;border:1.5px solid #FCA5A5;
+  background:var(--danger-s);font-size:14px;font-weight:600;color:var(--danger);
+  cursor:pointer;margin-top:7px;font-family:var(--font)}
+
+/* OVERLAYS */
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.68);
+  display:flex;align-items:center;justify-content:center;z-index:100;
+  padding:20px;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.modal{background:var(--card);border-radius:22px;padding:24px 20px;
+  width:100%;animation:slideUp .26s cubic-bezier(.22,.68,0,1.2)}
+.modal-ttl{font-size:18px;font-weight:600;color:var(--text);margin-bottom:5px}
+.modal-body{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:17px}
+.modal-btn{width:100%;padding:12px;border-radius:12px;border:none;
+  font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);margin-bottom:8px;transition:opacity .13s}
+.modal-btn:active{opacity:.82}
+.modal-btn.prim{background:linear-gradient(130deg,var(--navy2),var(--pink));color:#fff}
+.modal-btn.dang{background:var(--danger-s);color:var(--danger);border:1.5px solid #FCA5A5}
+.modal-btn.sec{background:var(--card2);color:var(--t2);border:1px solid var(--bdr)}
+.bsheet{background:var(--card);border-radius:22px 22px 0 0;padding:18px;
+  width:100%;position:absolute;bottom:0;left:0;right:0;z-index:100;animation:slideUp .25s ease}
+.sh-hdl{width:32px;height:4px;background:var(--bdr2);border-radius:2px;margin:0 auto 13px}
+.sh-ttl{font-size:16px;font-weight:600;margin-bottom:3px}
+.sh-sub{font-size:12.5px;color:var(--t2);margin-bottom:13px}
+.shopt{display:flex;align-items:center;gap:10px;padding:11px 2px;
+  border-bottom:1px solid var(--bdr);cursor:pointer}
+.shopt:last-child{border-bottom:none}
+.shopt svg{width:18px;height:18px;stroke:var(--t2);stroke-width:1.8;fill:none;flex-shrink:0}
+.shopt span{font-size:13.5px;color:var(--text)}
+.shopt.dng svg{stroke:var(--danger)}
+.shopt.dng span{color:var(--danger)}
+.rep-sel{width:100%;padding:10px 13px;border-radius:10px;border:1.5px solid var(--bdr);
+  background:var(--card);font-size:13.5px;font-family:var(--font);color:var(--text);
+  outline:none;margin-bottom:10px}
+
+/* MATCH MODAL */
+.mm{background:var(--card);border-radius:22px;padding:26px 22px;
+  width:100%;text-align:center;animation:slideUp .28s cubic-bezier(.22,.68,0,1.2)}
+.mm-em{font-size:44px;margin-bottom:6px}
+.mm-ttl{font-family:var(--serif);font-size:27px;margin-bottom:4px;
+  background:linear-gradient(130deg,var(--navy),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.mm-sub{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:17px}
+.mm-avs{display:flex;align-items:center;justify-content:center;gap:13px;margin-bottom:17px}
+.mm-av{width:58px;height:58px;border-radius:50%;overflow:hidden;
+  border:3px solid var(--match);background:linear-gradient(135deg,var(--navy),var(--pink));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:20px;color:rgba(255,255,255,.7)}
+.mm-av img{width:100%;height:100%;object-fit:cover}
+
+/* TOAST */
+.toast{position:absolute;bottom:85px;left:50%;transform:translateX(-50%);
+  background:#111827;color:#fff;padding:7px 16px;border-radius:18px;
+  font-size:12.5px;white-space:nowrap;z-index:200;pointer-events:none;animation:toastIn .26s ease}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(7px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+::-webkit-scrollbar{width:0}
+/* ── ROTATE SCREEN OVERLAY */
+#rotate-overlay{
+  display:none;
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(145deg,#080D1A 0%,#1B2D6B 50%,#E8237A 100%);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:32px;
+}
+#rotate-overlay svg{
+  width:64px;height:64px;stroke:#fff;stroke-width:1.5;fill:none;
+  margin-bottom:20px;animation:rotateHint 2s ease-in-out infinite;
+}
+@keyframes rotateHint{
+  0%{transform:rotate(0deg);}
+  30%{transform:rotate(-90deg);}
+  70%{transform:rotate(-90deg);}
+  100%{transform:rotate(0deg);}
+}
+#rotate-overlay h2{
+  font-family:'DM Serif Display',serif;font-size:26px;color:#fff;
+  margin-bottom:10px;letter-spacing:-.5px;
+}
+#rotate-overlay p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.6;}
+/* ── PORTRAIT-ONLY LOCK
+   All iPad landscape heights (= portrait widths):
+   iPad mini:        744–768px landscape height
+   iPad standard:    810–820px landscape height  
+   iPad Air:         820–834px landscape height
+   iPad Pro 11":     834px landscape height
+   iPad Pro 12.9/13": 1024–1032px landscape height
+   Max iPad landscape height = 1032px
+   
+   We use pointer:coarse to detect touch devices (iPads/iPhones)
+   so laptops/desktops (pointer:fine = mouse) are never affected.
+   Threshold: 1079px catches ALL iPads, excludes all desktop monitors. */
+@media screen and (orientation:landscape) and (pointer:coarse) and (max-height:1079px){
+  #rotate-overlay{display:flex !important;}
+  #root{display:none !important;}
+}
+/* Fallback for older browsers that don't support pointer media query */
+@media screen and (orientation:landscape) and (max-width:1366px) and (max-height:1079px){
+  #rotate-overlay{display:flex !important;}
+  #root{display:none !important;}
+}
+
+.mav-wrap{width:48px;height:48px;flex-shrink:0;position:relative;}
+.mav-badge{position:absolute;top:-5px;left:-5px;min-width:18px;height:18px;border-radius:9px;background:var(--pink);border:2.5px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;padding:0 4px;z-index:10;box-shadow:0 1px 4px rgba(232,35,122,.5)}
+.lightbox{position:absolute;inset:0;background:rgba(0,0,0,.93);z-index:300;display:flex;align-items:center;justify-content:center;animation:fadeIn .18s ease}
+.lightbox-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.lightbox-close svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — iPhone + all iPad sizes/orientations
+   Based on CSS viewport points:
+   iPhone:              ≤480px
+   iPad mini portrait:  481–768px  (744pt wide)
+   iPad 11" portrait:   769–900px  (820pt wide)
+   iPad 11" landscape / 13" portrait: 901–1180px (1180/1024pt)
+   iPad 13" landscape + desktop: >1180px
+   ═══════════════════════════════════════════ */
+
+/* iPhone — fills real screen edge to edge */
+@media screen and (max-width:480px){
+  html,body,#root{height:100%;overflow:hidden;}
+  #root{align-items:flex-start;}
+  .phone{width:100vw;height:100%;height:100dvh;height:var(--app-height,100dvh);border-radius:0;box-shadow:none;}
+  .sb{display:none;}
+}
+
+/* iPad mini portrait + small tablets */
+@media screen and (min-width:481px) and (max-width:768px){
+  html,body{overflow:auto;}
+  #root{align-items:flex-start;background:var(--bg);min-height:100vh;min-height:100dvh;}
+  .phone{width:100%;max-width:560px;min-height:100vh;min-height:100dvh;border-radius:0;box-shadow:none;margin:0 auto;}
+  .sb{display:none;}
+  .pbody{padding:16px 20px;width:100%;}
+  .aw{padding:32px 28px 0;max-width:480px;margin:0 auto;width:100%;}
+  .ob{padding:20px 28px;max-width:480px;margin:0 auto;width:100%;}
+  .dh,.cat-tabs,.rt-row,.act-row{padding-left:20px;padding-right:20px;}
+  .mhdr{padding:14px 20px 10px;}
+  .m-subtabs{padding:0 16px 10px;}
+  .mlist{padding:0 14px 14px;}
+  .cmsgs{padding:14px 20px;}
+  .cinp-bar{padding:8px 16px calc(8px + var(--safe));}
+  .card-stack{margin:0 14px;}
+}
+
+/* iPad 11" portrait / iPad mini landscape */
+@media screen and (min-width:769px) and (max-width:900px){
+  html,body{overflow:auto;}
+  #root{align-items:flex-start;background:var(--bg);min-height:100vh;min-height:100dvh;}
+  .phone{width:100%;max-width:700px;min-height:100vh;min-height:100dvh;border-radius:0;box-shadow:none;margin:0 auto;}
+  .sb{display:none;}
+  .pbody{padding:20px 40px;max-width:660px;margin:0 auto;width:100%;}
+  .aw{padding:40px 56px 0;max-width:560px;margin:0 auto;width:100%;}
+  .ob{padding:28px 56px;max-width:560px;margin:0 auto;width:100%;}
+  .dh{padding:16px 32px 12px;}
+  .cat-tabs{padding:0 32px 12px;}
+  .rt-row{padding:0 32px 10px;}
+  .act-row{padding:0 32px 16px;}
+  .mhdr{padding:16px 32px 12px;}
+  .m-subtabs{padding:0 28px 12px;}
+  .mlist{padding:0 24px 16px;}
+  .cmsgs{padding:16px 40px;}
+  .cinp-bar{padding:10px 32px calc(10px + var(--safe));}
+  .card-stack{max-width:580px;margin:0 auto;width:calc(100% - 64px);}
+  .av-grid{grid-template-columns:repeat(6,1fr);}
+  .chip{padding:8px 14px;font-size:13px;}
+  .nb{font-size:12px;}
+  .nb svg{width:25px;height:25px;}
+}
+
+/* iPad 11" landscape / iPad 13" portrait */
+@media screen and (min-width:901px) and (max-width:1180px){
+  html,body{overflow:auto;}
+  #root{align-items:flex-start;background:var(--bg);min-height:100vh;min-height:100dvh;}
+  .phone{width:100%;max-width:820px;min-height:100vh;min-height:100dvh;border-radius:0;box-shadow:none;margin:0 auto;}
+  .sb{display:none;}
+  .pbody{padding:24px 56px;max-width:760px;margin:0 auto;width:100%;}
+  .aw{padding:48px 80px 0;max-width:620px;margin:0 auto;width:100%;}
+  .ob{padding:32px 80px;max-width:620px;margin:0 auto;width:100%;}
+  .dh{padding:18px 48px 14px;}
+  .cat-tabs{padding:0 48px 12px;}
+  .rt-row{padding:0 48px 10px;}
+  .act-row{padding:0 48px 18px;}
+  .mhdr{padding:18px 48px 12px;}
+  .m-subtabs{padding:0 44px 12px;}
+  .mlist{padding:0 40px 18px;}
+  .cmsgs{padding:18px 64px;}
+  .cinp-bar{padding:12px 56px calc(12px + var(--safe));}
+  .card-stack{max-width:680px;margin:0 auto;width:calc(100% - 96px);}
+  .av-grid{grid-template-columns:repeat(6,1fr);}
+  .chip{padding:9px 16px;font-size:13.5px;}
+  .nb{font-size:12.5px;padding:12px 8px 6px;}
+  .nb svg{width:27px;height:27px;}
+  .btn-p{padding:15px;font-size:16px;}
+  .mrow{padding:13px 8px;gap:14px;}
+  .mav-wrap,.mav{width:54px;height:54px;}
+  .icard{margin-bottom:16px;}
+  .sec-lbl{font-size:11px;margin-top:6px;}
+}
+
+/* iPad 13" landscape + desktop — phone frame mockup */
+@media screen and (min-width:1181px){
+  #root{align-items:center;background:linear-gradient(145deg,#080D1A 0%,#1B2D6B 40%,#6B0E3D 72%,#E8237A 100%);}
+  .phone{width:390px;height:844px;border-radius:46px;box-shadow:0 0 0 10px #060A15,0 0 0 12px #111827,0 40px 100px rgba(0,0,0,.65);}
+}
+
+</style>
+</head>
+<body>
+<div id="rotate-overlay">
+  <svg viewBox="0 0 24 24">
+    <rect x="4" y="2" width="10" height="16" rx="2"/>
+    <path d="M17 8l3 3-3 3"/>
+    <path d="M20 11H13"/>
+  </svg>
+  <h2>PrepPals</h2>
+  <p>Please rotate your device<br/>to portrait mode to continue.</p>
+</div>
+<div id="root">
+  <div class="phone" id="phone">
+    <div class="sb">
+      <span class="sb-t" id="stime">9:41</span>
+      <div class="sb-i">
+        <svg viewBox="0 0 24 24"><path d="M1 6s4-4 11-4 11 4 11 4M5 10s1.5-2 7-2 7 2 7 2M9 14s1-1 3-1 3 1 3 1"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg>
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="11" rx="2"/><path d="M18 10h2a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-2"/></svg>
+      </div>
+    </div>
+    <div id="app" class="scr"></div>
+    <nav class="nav" id="nav" style="display:none">
+      <button class="nb on" id="nb-discover" onclick="gotoTab('discover')">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Discover
+      </button>
+      <button class="nb" id="nb-matches" onclick="gotoTab('matches')">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Matches
+      </button>
+      <button class="nb" id="nb-profile" onclick="gotoTab('profile')">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile
+      </button>
+    </nav>
+    <div id="tslot"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
+<script>
+// ════════════════════════════════════════════════════════════
+//  PrepPals FINAL — Complete Production Client
+//  Zero mock data · All state from Supabase
+// ════════════════════════════════════════════════════════════
+
+/* ── CONFIG ── Replace these before deploying */
+const SB_URL  = 'https://bzemnfwfsnpnzwjxmayj.supabase.co';
+const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6ZW1uZndmc25wbnp3anhtYXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MjE2NTQsImV4cCI6MjA5NjA5NzY1NH0.xxNu5cJ-a3f4TxH6jTXM801UofT5qRhlDwyHAvm0nUc';
+const SUPPORT = 'preppalscustomersupport@gmail.com';
+const RESEND_KEY = 'RESEND_API_KEY'; // Replace with Resend API key
+
+/* ── DICEBEAR AVATARS (brand blue + pink palette) */
+const AVATARS = [
+  { id:'a1', url:'https://api.dicebear.com/8.x/adventurer/svg?seed=Scholar&backgroundColor=1B2D6B&skinColor=f2d3b1',   label:'Scholar'  },
+  { id:'a2', url:'https://api.dicebear.com/8.x/adventurer/svg?seed=Achiever&backgroundColor=E8237A&skinColor=ae5d29',  label:'Achiever' },
+  { id:'a3', url:'https://api.dicebear.com/8.x/adventurer/svg?seed=Analyst&backgroundColor=2B47D9&skinColor=d08b5b',   label:'Analyst'  },
+  { id:'a4', url:'https://api.dicebear.com/8.x/adventurer/svg?seed=Leader&backgroundColor=7B1147&skinColor=614335',    label:'Leader'   },
+  { id:'a5', url:'https://api.dicebear.com/8.x/adventurer/svg?seed=Explorer&backgroundColor=22C55E&skinColor=fddbb4',  label:'Explorer' },
+  { id:'a6', url:'https://api.dicebear.com/8.x/adventurer/svg?seed=Creator&backgroundColor=FF4FA3&skinColor=edb98a',   label:'Creator'  },
+];
+
+const SUBS = ['Math','Reading','Writing','Grammar','Vocabulary',
+  'Data Analysis','Geometry','Algebra','Problem Solving','Critical Thinking'];
+
+const sb = supabase.createClient(SB_URL, SB_ANON, {
+  auth:{ persistSession:true, autoRefreshToken:true, flowType:'pkce' },
+  realtime:{ params:{ eventsPerSecond:10 } }
+});
+
+/* ── STATE */
+const S = {
+  session:null, profile:null,
+  tab:'discover', cat:'english',
+  feed:[], fi:0, feedLoading:false, bookmarks:new Set(), discSearch:'', showBookmarked:false,
+  matches:[], archiveMatches:[], matchesLoading:false, subTab:'active',
+  openChat:null, chatMsgs:[], chatLoading:false, chatInput:'', chatArchived:false,
+  rtConn:false, matchCh:null, chatCh:null, presenceCh:null, presencePoll:null,
+  matchQueue:[], showMM:false, pendingPt:null,
+  showReport:false, repTarget:null, repReason:'spam',
+  showUnmatch:false, unmatchId:null,
+  showDelConfirm:false,
+  showVerify:false,
+  authMode:'login',
+  af:{ email:'', password:'', first:'', last:'' },
+  ac:{ name:false, notif:false, age:false },
+  authErr:null, authLoading:false, onlineUsers:new Set(), showVerified:false, showResetPw:false, rpf:{old:'',new1:'',new2:''}, rpErr:null, rpLoading:false, rpBtn:false, showRecovery:false, recErr:null, recLoading:false,
+  obStep:1,
+  of:{ first:'', last:'', grade:'11', bio:'',
+       goalMath:600, goalReading:600, hasSat:false,
+       curMath:null, curRead:null, range:40,
+       avUrl:AVATARS[0].url },
+  obStr:[], obWk:[],
+  scanLoading:false, scanErr:'', scanOk:'',
+  uploads:[],
+  sf:null,
+  gradeFilter:null,
+  unreadCount:0,
+  unreadPerMatch:{},
+  lastRead:{},
+  mediaPending:null,
+  showLightbox:false,lightboxSrc:'',lightboxType:'image',
+  showAccountDeleted:false,
+};
+
+/* ── UTILS */
+const $  = id => document.getElementById(id);
+const esc = s => s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function toast(msg,dur=2200){const c=$('tslot');if(!c)return;const t=document.createElement('div');t.className='toast';t.textContent=msg;c.appendChild(t);setTimeout(()=>t.remove(),dur);}
+function updateClock(){const e=$('stime');if(e)e.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
+function relTime(iso){if(!iso)return'';const d=Date.now()-new Date(iso).getTime(),m=Math.floor(d/60000);if(m<1)return'now';if(m<60)return m+'m';const h=Math.floor(m/60);if(h<24)return h+'h';return Math.floor(h/24)+'d';}
+function shortTime(iso){
+  if(!iso)return'';
+  const d=new Date(iso);
+  const now=new Date();
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const msgDay=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  const diffDays=Math.round((today-msgDay)/(1000*60*60*24));
+  const time=d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  if(diffDays===0)return time;
+  if(diffDays===1)return 'Yesterday '+time;
+  if(diffDays<7)return d.toLocaleDateString([],{weekday:'short'})+' '+time;
+  return d.toLocaleDateString([],{month:'short',day:'numeric'})+' '+time;
+}
+function initials(p){if(!p)return'?';return((p.first_name||'').charAt(0)+(p.last_initial||'')).toUpperCase();}
+function cardBg(id){const h=(id||'').split('').reduce((a,c)=>a+c.charCodeAt(0),0);const g=['linear-gradient(135deg,#1B2D6B,#E8237A)','linear-gradient(135deg,#2B47D9,#7B1147)','linear-gradient(135deg,#7B1147,#FF4FA3)','linear-gradient(135deg,#1B2D6B,#2B47D9)','linear-gradient(135deg,#E8237A,#1B2D6B)','linear-gradient(135deg,#22C55E,#1B2D6B)'];return g[h%g.length];}
+function pct(v,mn,mx){return((Math.max(mn,Math.min(mx,v))-mn)/(mx-mn)*100).toFixed(1)+'%';}
+function setSlidePct(el){el.style.setProperty('--pct',pct(parseFloat(el.value),parseFloat(el.min),parseFloat(el.max)));}
+function scrollChat(){setTimeout(()=>{const e=$('cmsgs');if(e)e.scrollTop=e.scrollHeight;},45);}
+function toBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=()=>rej(new Error('Read failed'));r.readAsDataURL(file);});}
+
+/* ── REALTIME */
+function subMatches(){
+  if(!S.session||S.matchCh)return;
+  const uid=S.session.user.id;
+  S.matchCh=sb.channel('mc:'+uid)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'matches'},async pl=>{
+      const m=pl.new;
+      if(m.user_one!==uid&&m.user_two!==uid)return;
+      const pid=m.user_one===uid?m.user_two:m.user_one;
+      const{data:pt}=await sb.from('profiles').select('*').eq('id',pid).single();
+      if(pt){S.matchQueue.push({match:m,partner:pt});if(!S.showMM)nextMatch();}
+      // fire match email notification
+      // Send match email notification if user has notifications enabled
+      try{
+        if(S.profile?.email_notifications_enabled){
+          const partnerEmail=pt?.email;
+          // Notify current user
+          await fetch('https://api.resend.com/emails',{method:'POST',
+            headers:{'Content-Type':'application/json','Authorization':'Bearer '+RESEND_KEY},
+            body:JSON.stringify({
+              from:'PrepPals <noreply@preppals.app>',
+              to:[S.session.user.email],
+              subject:"You've got a new study match! 🎉",
+              html:`<h2>You matched with ${esc(pt.first_name)} ${esc(pt.last_initial)}!</h2><p>Head back to <a href="https://preppals.app">PrepPals</a> to start chatting.</p>`
+            })
+          });
+        }
+      }catch(_){}
+    })
+    .subscribe(st=>{S.rtConn=st==='SUBSCRIBED';render();});
+
+
+}
+function nextMatch(){if(!S.matchQueue.length)return;const{partner}=S.matchQueue.shift();S.pendingPt=partner;S.showMM=true;render();}
+
+function subChat(matchId){
+  if(S.chatCh){sb.removeChannel(S.chatCh);S.chatCh=null;}
+  S.chatCh=sb.channel('ch:'+matchId)
+    .on('postgres_changes',{event:'UPDATE',schema:'public',table:'messages',filter:`match_id=eq.${matchId}`},pl=>{
+      const m=pl.new;const idx=S.chatMsgs.findIndex(x=>x.id===m.id);
+      if(idx>-1){S.chatMsgs[idx]=m;render();}
+    })
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`match_id=eq.${matchId}`},pl=>{
+      const m=pl.new;if(!S.chatMsgs.find(x=>x.id===m.id)){S.chatMsgs.push(m);render();scrollChat();}
+      // If we're the recipient and chat is open, mark as read immediately
+      const uid2=S.session?.user?.id;
+      if(m.sender_id!==uid2&&S.openChat?.matchId===matchId){
+        sb.from('messages').update({read_at:new Date().toISOString()}).eq('id',m.id).then(()=>{
+          const idx=S.chatMsgs.findIndex(x=>x.id===m.id);
+          if(idx>-1){S.chatMsgs[idx].read_at=new Date().toISOString();render();}
+        });
+      }
+    }).subscribe();
+}
+
+/* ── DATA */
+async function loadFeed(){
+  if(!S.session||S.feedLoading)return;
+  S.feedLoading=true;render();
+  const uid=S.session.user.id,p=S.profile;
+  try{
+    const[{data:swiped},{data:blocked},{data:reported},{data:unmatched}]=await Promise.all([
+      sb.from('discovery_feed_interactions').select('receiver_id').eq('sender_id',uid),
+      sb.from('blocked_users').select('blocked_id,blocker_id').or(`blocker_id.eq.${uid},blocked_id.eq.${uid}`),
+      sb.from('reported_profiles').select('reported_user_id').eq('reporter_id',uid),
+      sb.from('matches').select('user_one,user_two').or(`user_one.eq.${uid},user_two.eq.${uid}`).eq('status','unmatched'),
+    ]);
+    const exc=new Set([uid]);
+    (swiped||[]).forEach(r=>exc.add(r.receiver_id));
+    (blocked||[]).forEach(b=>{exc.add(b.blocked_id);exc.add(b.blocker_id);});
+    (reported||[]).forEach(r=>exc.add(r.reported_user_id));
+    (unmatched||[]).forEach(m=>exc.add(m.user_one===uid?m.user_two:m.user_one));
+    const gf=S.cat==='math'?'goal_math':'goal_reading';
+    const mg=S.cat==='math'?(p?.goal_math||600):(p?.goal_reading||600);
+    const rng=p?.filter_range||40;
+    const excA=[...exc];
+    let q=sb.from('profiles').select('*').or('is_deleted.is.null,is_deleted.eq.false').not('first_name','is',null).not('grade_level','is',null).gte(gf,mg-rng).lte(gf,mg+rng).limit(25);
+    if(S.gradeFilter)q=q.eq('grade_level',S.gradeFilter);
+    if(excA.length)q=q.not('id','in',`(${excA.join(',')})`);
+    const{data,error}=await q.order('created_at',{ascending:false});
+    if(error)throw error;
+    S.feed=data||[];S.fi=0;
+    const{data:bk}=await sb.from('bookmarked_profiles').select('bookmarked_user_id').eq('user_id',uid);
+    S.bookmarks=new Set((bk||[]).map(b=>b.bookmarked_user_id));
+  }catch(e){console.error('Feed:',e);}
+  S.feedLoading=false;render();
+}
+
+async function loadMatches(){
+  if(!S.session)return;
+  S.matchesLoading=true;render();
+  const uid=S.session.user.id;
+  try{
+    // Add a 10 second timeout so it never hangs forever
+    const timeout=new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),10000));
+    const fetch=async()=>{
+      const{data,error}=await sb.from('matches').select('id,user_one,user_two,status,created_at').or(`user_one.eq.${uid},user_two.eq.${uid}`).order('created_at',{ascending:false});
+      if(error)throw error;
+      if(!data?.length){S.matches=[];S.archiveMatches=[];return;}
+      const pIds=data.map(m=>m.user_one===uid?m.user_two:m.user_one);
+      const{data:profs}=await sb.from('profiles').select('*').in('id',pIds);
+      const pm=Object.fromEntries((profs||[]).map(p=>[p.id,p]));
+      const msgs=await Promise.all(data.map(m=>sb.from('messages').select('*').eq('match_id',m.id).order('created_at',{ascending:false}).limit(1)));
+      const all=data.map((m,i)=>({...m,partner:pm[m.user_one===uid?m.user_two:m.user_one],lastMsg:(msgs[i].data||[])[0]||null}));
+      S.matches=all.filter(m=>m.status==='active');
+      S.archiveMatches=all.filter(m=>m.status==='unmatched'||m.status==='deleted_user');
+    };
+    await Promise.race([fetch(),timeout]);
+  }catch(e){
+    console.error('loadMatches:',e);
+    S.matches=S.matches||[];
+    S.archiveMatches=S.archiveMatches||[];
+  }
+  S.matchesLoading=false;
+  render(); // always render, even on error
+}
+
+async function loadChat(matchId){
+  S.chatLoading=true;render();
+  try{const{data,error}=await sb.from('messages').select('*').eq('match_id',matchId).order('created_at',{ascending:true});if(error)throw error;S.chatMsgs=data||[];
+  // Mark incoming messages as read
+  const uid=S.session.user.id;
+  const unread=(data||[]).filter(m=>m.sender_id!==uid&&!m.read_at).map(m=>m.id);
+  if(unread.length){await sb.from('messages').update({read_at:new Date().toISOString()}).in('id',unread);}
+  }
+  catch(e){console.error('Chat:',e);}
+  S.chatLoading=false;render();scrollChat();
+}
+
+async function loadUploads(){
+  if(!S.session)return;
+  const{data}=await sb.from('sat_score_submissions').select('*').eq('user_id',S.session.user.id).order('created_at',{ascending:false});
+  S.uploads=(data||[]).map(r=>({name:r.file_name,math:r.math_score,reading:r.reading_score}));
+}
+
+/* ── ACTIONS */
+async function doHeart(){
+  const q=(S.discSearch||'').toLowerCase().trim();
+  const visibleFeed=S.feed.filter(p=>{if(S.showBookmarked&&!S.bookmarks.has(p.id))return false;if(!S.showBookmarked&&S.bookmarks.has(p.id))return false;if(q){const name=((p.first_name||'')+' '+(p.last_initial||'')).toLowerCase();if(!name.includes(q))return false;}return true;});
+  const c=visibleFeed[0];if(!c||!S.session)return;
+  animCard('heart');
+  await sb.from('discovery_feed_interactions').insert({sender_id:S.session.user.id,receiver_id:c.id,interaction_type:'heart'});
+  advFeed();
+}
+async function doSkip(){
+  const q=(S.discSearch||'').toLowerCase().trim();
+  const visibleFeed=S.feed.filter(p=>{if(S.showBookmarked&&!S.bookmarks.has(p.id))return false;if(!S.showBookmarked&&S.bookmarks.has(p.id))return false;if(q){const name=((p.first_name||'')+' '+(p.last_initial||'')).toLowerCase();if(!name.includes(q))return false;}return true;});
+  const c=visibleFeed[0];if(!c||!S.session)return;
+  animCard('skip');
+  await sb.from('discovery_feed_interactions').insert({sender_id:S.session.user.id,receiver_id:c.id,interaction_type:'skip'});
+  advFeed();
+}
+function advFeed(){setTimeout(()=>{const q=(S.discSearch||'').toLowerCase().trim();const visibleFeed=S.feed.filter(p=>{if(S.showBookmarked&&!S.bookmarks.has(p.id))return false;if(!S.showBookmarked&&S.bookmarks.has(p.id))return false;if(q){const name=((p.first_name||'')+' '+(p.last_initial||'')).toLowerCase();if(!name.includes(q))return false;}return true;});if(visibleFeed.length>0)S.feed=S.feed.filter(p=>p.id!==visibleFeed[0].id);if(!S.feed.length)loadFeed();else render();},290);}
+function animCard(t){
+  const el=$('acard');if(!el)return;el.classList.add(t+'-anim');
+  const s=$(t==='heart'?'stamp-like':'stamp-pass');if(s)s.style.opacity='1';
+}
+
+async function toggleBk(pid){
+  if(!S.session)return;const uid=S.session.user.id;
+  if(S.bookmarks.has(pid)){
+    await sb.from('bookmarked_profiles').delete().eq('user_id',uid).eq('bookmarked_user_id',pid);
+    S.bookmarks.delete(pid);toast('Bookmark removed');
+  }else{
+    await sb.from('bookmarked_profiles').insert({user_id:uid,bookmarked_user_id:pid});
+    S.bookmarks.add(pid);toast('Bookmarked!');
+  }
+  render();
+}
+
+async function submitReport(){
+  const tid=S.repTarget,reason=S.repReason;
+  if(!tid||!S.session)return;
+  const uid=S.session.user.id;
+  await sb.from('reported_profiles').insert({reporter_id:uid,reported_user_id:tid,reason});
+  await sb.from('blocked_users').insert({blocker_id:uid,blocked_id:tid,reason:'reported'}).throwOnError().catch(()=>{});
+  S.feed=S.feed.filter(p=>p.id!==tid);
+  if(S.fi>=S.feed.length&&S.feed.length)S.fi=S.feed.length-1;
+  const subj=encodeURIComponent('[PrepPals] Report: '+reason);
+  const body=encodeURIComponent(`Reporter: ${uid}\nReported: ${tid}\nReason: ${reason}\nTime: ${new Date().toISOString()}`);
+  const a=document.createElement('a');a.href=`mailto:${SUPPORT}?subject=${subj}&body=${body}`;a.click();
+  S.showReport=false;toast('Report submitted');render();
+}
+
+async function doUnmatch(){
+  const mid=S.unmatchId;if(!mid||!S.session)return;
+  await sb.from('matches').update({status:'unmatched',unmatched_by:S.session.user.id,unmatched_at:new Date().toISOString()}).eq('id',mid);
+  S.showUnmatch=false;S.openChat=null;
+  await loadMatches();toast('Unmatched — conversation archived.');render();
+}
+
+async function sendMsg(){
+  if(!S.openChat||!S.session)return;const uid=S.session.user.id;
+  if(S.mediaPending){
+    const{file,type}=S.mediaPending;
+    try{const ext=file.name.split('.').pop()||'jpg';const path=uid+'/'+S.openChat.matchId+'/'+Date.now()+'.'+ext;const{error:upErr}=await sb.storage.from('chat-media').upload(path,file,{contentType:file.type,upsert:false});if(upErr)throw upErr;const{data:{publicUrl}}=sb.storage.from('chat-media').getPublicUrl(path);await sb.from('messages').insert({match_id:S.openChat.matchId,sender_id:uid,message_text:(type==='video'?'[VIDEO]':'[IMAGE]')+publicUrl});}
+    catch(e){toast('Media failed: '+e.message);}
+    S.mediaPending=null;S.chatInput='';const i=$('cinp');if(i)i.value='';updateSendBtn();render();return;
+  }
+  const text=S.chatInput.trim();if(!text)return;
+  S.chatInput='';const i=$('cinp');if(i)i.value='';updateSendBtn();
+  await sb.from('messages').insert({match_id:S.openChat.matchId,sender_id:uid,message_text:text});
+}
+async function pickMedia(e){
+  const file=e.target.files?.[0];if(!file)return;e.target.value='';
+  const isVid=file.type.startsWith('video/');
+  if(!isVid&&!file.type.startsWith('image/')){toast('Images and videos only.');return;}
+  if(file.size>50*1024*1024){toast('Max 50MB.');return;}
+  const dataUrl=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});
+  S.mediaPending={file,dataUrl,type:isVid?'video':'image'};updateSendBtn();render();
+}
+
+async function doAuth(){
+  S.authErr=null;S.authLoading=true;render();
+  const{email,password,first,last}=S.af;
+  try{
+    if(S.authMode==='signup'){
+      if(!S.ac.name||!S.ac.notif||!S.ac.age)throw new Error('Please check all required boxes.');
+      const{data,error}=await sb.auth.signUp({email,password,options:{data:{first_name:first,last_name:last},emailRedirectTo:'https://preppals.app/verified'}});
+      if(error)throw error;
+      S.showVerify=true;S.authLoading=false;render();return;
+    }else{
+      const{data,error}=await sb.auth.signInWithPassword({email,password});
+      if(error)throw error;
+      S.session=data.session;await initApp();
+    }
+  }catch(err){S.authErr=err.message||err.toString()||'Something went wrong.';}
+  S.authLoading=false;render();
+}
+
+async function saveOnboarding(){
+  if(!S.session)return;
+  const f=S.of;
+  const{data,error}=await sb.from('profiles').upsert({
+    id:S.session.user.id,
+    first_name:f.first,last_initial:(f.last||'').charAt(0).toUpperCase()||'A',
+    grade_level:parseInt(f.grade,10),bio:f.bio,avatar_url:f.avUrl,
+    goal_math:f.goalMath,goal_reading:f.goalReading,
+    has_taken_sat:f.hasSat,
+    current_math:f.hasSat?f.curMath:null,current_reading:f.hasSat?f.curRead:null,
+    filter_range:f.range,strengths:S.obStr,weaknesses:S.obWk,
+    consent_display_name:true,email_notifications_enabled:(S.ac.notif||true),age_acknowledged:true,
+  },{onConflict:'id'}).select().single();
+  if(error){toast('Error: '+error.message);return;}
+  S.profile=data;$('nav').style.display='flex';gotoTab('discover');
+}
+
+async function saveSettings(){
+  if(!S.session||!S.sf)return;
+  const f=S.sf;
+  const{data,error}=await sb.from('profiles').update({
+    grade_level:parseInt(f.grade,10),bio:f.bio,
+    goal_math:f.goalMath,goal_reading:f.goalReading,
+    has_taken_sat:f.hasSat,
+    current_math:f.hasSat?f.curMath:null,current_reading:f.hasSat?f.curRead:null,
+    filter_range:f.range,email_notifications_enabled:f.notif,
+    avatar_url:f.avUrl||S.profile.avatar_url,
+    strengths:f.strengths||[],
+    weaknesses:f.weaknesses||[],
+  }).eq('id',S.session.user.id).select().single();
+  if(error){toast('Error: '+error.message);return;}
+  S.profile=data;S.gradeFilter=S.sf.gradeFilter||null;S.feed=[];loadFeed();toast('Profile saved!');render();
+}
+
+async function toggleNotif(val){
+  if(!S.session)return;
+  if(S.sf)S.sf.notif=val;
+  await sb.from('profiles').update({email_notifications_enabled:val}).eq('id',S.session.user.id);
+  if(S.profile)S.profile.email_notifications_enabled=val;render();
+}
+
+async function deleteAccount(){
+  S.showDelConfirm=false;
+  const uid=S.session.user.id;
+
+  // Archive all matches for the other user before deleting
+  const{error:matchErr}=await sb.from('matches')
+    .update({status:'deleted_user',unmatched_by:uid,unmatched_at:new Date().toISOString()})
+    .or(`user_one.eq.${uid},user_two.eq.${uid}`);
+  if(matchErr)console.error('Match archive failed:',matchErr);
+
+  try{
+    const{error:rpcErr}=await sb.rpc('delete_own_account');
+    if(rpcErr)throw rpcErr;
+  }catch(e){
+    console.error('delete_own_account RPC failed:',e);
+    // Don't hard-delete the profile here — that would trigger the FK
+    // cascade on matches and wipe out the archive we just set above.
+    // Just log it so we can see what actually broke.
+    toast('Something went wrong deleting your account. Please contact support.');
+    render();
+    return;
+  }
+
+  await sb.auth.signOut();
+  S.session=null;S.profile=null;S.feed=[];S.matches=[];
+  $('nav').style.display='none';toast('Account deleted.');render();
+}
+
+function resetPassword(){S.showResetPw=true;S.rpf={old:'',new1:'',new2:''};S.rpErr=null;S.rpOk=false;render();}
+function updateRpBtn(){
+  const old=document.querySelector('#rp-old')?.value||'';
+  const new1=document.querySelector('#rp-new1')?.value||'';
+  const new2=document.querySelector('#rp-new2')?.value||'';
+  S.rpf={old,new1,new2};
+  const valid=old.length>=8&&new1.length>=8&&new1===new2&&new1!==old;
+  const btn=document.querySelector('#rp-submit');
+  if(btn){btn.style.opacity=valid?'1':'0.4';btn.style.pointerEvents=valid?'auto':'none';}
+  const mismatch=document.querySelector('#rp-mismatch');
+  if(mismatch)mismatch.style.display=(new2&&new1!==new2)?'block':'none';
+  const inp=document.querySelector('#rp-new2');
+  if(inp)inp.style.borderColor=(new2&&new1!==new2)?'#ef4444':'';
+  // Show/hide length hint
+  const hint=document.querySelector('#rp-hint');
+  if(hint)hint.style.display=new1.length>0&&new1.length<8?'block':'none';
+}
+async function submitResetPassword(){
+  const oldPw=document.getElementById('rp-old')?.value||'';
+  const newPw=document.getElementById('rp-new1')?.value||'';
+  const newPw2=document.getElementById('rp-new2')?.value||'';
+  if(!oldPw||!newPw||!newPw2)return;
+  if(newPw!==newPw2){S.rpErr='Passwords do not match.';render();return;}
+  if(newPw.length<8){S.rpErr='New password must be at least 8 characters.';render();return;}
+  S.rpErr=null;S.rpLoading=true;render();
+  // Verify old password by re-signing in
+  const email=S.session.user.email;
+  const{error:signErr}=await sb.auth.signInWithPassword({email,password:oldPw});
+  if(signErr){S.rpErr='Old password is incorrect.';S.rpLoading=false;render();return;}
+  // Update to new password
+  const{error:updErr}=await sb.auth.updateUser({password:newPw});
+  if(updErr){S.rpErr=updErr.message;S.rpLoading=false;render();return;}
+  S.rpLoading=false;S.showResetPw=false;S.rpf={old:'',new1:'',new2:''};
+  alert('Password updated successfully!');render();
+}
+function rRecoveryScreen(){
+  return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;padding:32px;background:var(--bg)">
+    <div style="background:var(--card);border-radius:24px;padding:32px 24px;max-width:340px;width:100%;box-shadow:var(--sh2)">
+      <div style="font-size:22px;font-weight:800;margin-bottom:24px;text-align:center;background:linear-gradient(130deg,#1B2D6B,#E8237A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">PrepPals</div>
+      <h2 style="font-size:18px;font-weight:700;margin-bottom:20px;text-align:center">Set New Password</h2>
+      <div class="ig" style="margin-bottom:12px">
+        <label class="lbl">New Password</label>
+        <div style="position:relative">
+          <input id="rec-new1" class="inp" type="password" placeholder="Min 8 characters"
+            oninput="updateRecBtn()" style="padding-right:40px"/>
+          <button id="rec-new1-eye" onclick="toggleRecEye('rec-new1')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--t2)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <p id="rec-hint" style="color:#f59e0b;font-size:11px;margin-top:4px;display:none">Password must be at least 8 characters</p>
+      </div>
+      <div class="ig" style="margin-bottom:20px">
+        <label class="lbl">Confirm New Password</label>
+        <div style="position:relative">
+          <input id="rec-new2" class="inp" type="password" placeholder="Repeat new password"
+            oninput="updateRecBtn()" style="padding-right:40px"/>
+          <button id="rec-new2-eye" onclick="toggleRecEye('rec-new2')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--t2)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <p id="rec-mismatch" style="color:#ef4444;font-size:11px;margin-top:4px;display:none">Passwords do not match</p>
+      </div>
+      ${S.recErr?`<p style="color:#ef4444;font-size:12px;margin-bottom:12px;text-align:center">${esc(S.recErr)}</p>`:''}
+      <button id="rec-submit" class="btn-p" style="width:100%;opacity:0.4;pointer-events:none"
+        onclick="submitRecovery()">Set New Password</button>
+    </div>
+  </div>`;
+}
+function updateRecBtn(){
+  const new1=document.getElementById('rec-new1')?.value||'';
+  const new2=document.getElementById('rec-new2')?.value||'';
+  const valid=new1.length>=8&&new1===new2;
+  const btn=document.getElementById('rec-submit');
+  if(btn){btn.style.opacity=valid?'1':'0.4';btn.style.pointerEvents=valid?'auto':'none';}
+  const hint=document.getElementById('rec-hint');
+  if(hint)hint.style.display=new1.length>0&&new1.length<8?'block':'none';
+  const mismatch=document.getElementById('rec-mismatch');
+  if(mismatch)mismatch.style.display=(new2&&new1!==new2)?'block':'none';
+}
+function toggleRecEye(id){
+  const inp=document.getElementById(id);
+  const btn=document.getElementById(id+'-eye');
+  if(!inp)return;
+  if(inp.type==='password'){
+    inp.type='text';
+    if(btn)btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+  } else {
+    inp.type='password';
+    if(btn)btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  }
+}
+async function submitRecovery(){
+  const new1=document.getElementById('rec-new1')?.value||'';
+  const new2=document.getElementById('rec-new2')?.value||'';
+  if(new1!==new2){S.recErr='Passwords do not match.';render();return;}
+  if(new1.length<8){S.recErr='Password must be at least 8 characters.';render();return;}
+  S.recLoading=true;S.recErr=null;render();
+  const{error}=await sb.auth.updateUser({password:new1});
+  if(error){S.recErr=error.message;S.recLoading=false;render();return;}
+  S.showRecovery=false;S.recLoading=false;
+  await sb.auth.signOut();
+  S.session=null;S.tab='discover';
+  alert('Password updated successfully! Please sign in with your new password.');
+  render();
+}
+function toggleRpEye(id){
+  const inp=document.getElementById(id);
+  const btn=document.getElementById(id+'-eye');
+  if(!inp)return;
+  if(inp.type==='password'){inp.type='text';if(btn)btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';}
+  else{inp.type='password';if(btn)btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';}
+}
+function rResetPwModal(){
+  return `<div class="overlay" onclick="if(event.target===this){S.showResetPw=false;render()}">
+    <div class="mm" style="padding:24px;max-width:340px;width:90%">
+      <h2 style="font-size:18px;font-weight:700;margin-bottom:20px">Reset Password</h2>
+      <div class="ig" style="margin-bottom:12px">
+        <label class="lbl">Old Password</label>
+        <div style="position:relative">
+          <input id="rp-old" class="inp" type="password" placeholder="Enter old password"
+            oninput="updateRpBtn()" style="padding-right:40px"/>
+          <button id="rp-old-eye" onclick="toggleRpEye('rp-old')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--t2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+      </div>
+      <div class="ig" style="margin-bottom:12px">
+        <label class="lbl">New Password</label>
+        <div style="position:relative">
+          <input id="rp-new1" class="inp" type="password" placeholder="Min 8 characters"
+            oninput="updateRpBtn()" style="padding-right:40px"/>
+          <button id="rp-new1-eye" onclick="toggleRpEye('rp-new1')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--t2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <p id="rp-hint" style="color:#f59e0b;font-size:11px;margin-top:4px;display:none">Password must be at least 8 characters</p>
+      </div>
+      <div class="ig" style="margin-bottom:16px">
+        <label class="lbl">Confirm New Password</label>
+        <div style="position:relative">
+          <input id="rp-new2" class="inp" type="password" placeholder="Repeat new password"
+            oninput="updateRpBtn()" style="padding-right:40px"/>
+          <button id="rp-new2-eye" onclick="toggleRpEye('rp-new2')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--t2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <p id="rp-mismatch" style="color:#ef4444;font-size:11px;margin-top:4px;display:none">Passwords do not match</p>
+      </div>
+      ${S.rpErr?`<p style="color:#ef4444;font-size:12px;margin-bottom:12px">${esc(S.rpErr)}</p>`:''}
+      <button id="rp-submit" class="btn-p" style="width:100%;opacity:0.4;pointer-events:none"
+        onclick="submitResetPassword()">Update Password</button>
+      <button class="so-btn" style="width:100%;margin-top:8px" onclick="S.showResetPw=false;render()">Cancel</button>
+    </div>
+  </div>`;
+}
+
+async function signOut(){
+  await sb.auth.signOut();
+  // Clear ALL state
+  S.session=null;S.profile=null;S.feed=[];S.fi=0;S.tab='discover';S.showVerified=false;
+  S.matches=[];S.archiveMatches=[];S.openChat=null;
+  S.chatMsgs=[];S.chatInput='';S.mediaPending=null;
+  S.unreadCount=0;S.unreadPerMatch={};
+  S.obStep=1;S.of={first:'',last:'',grade:'11',bio:'',
+    goalMath:600,goalReading:600,hasSat:false,
+    curMath:null,curRead:null,range:40,avUrl:AVATARS[0].url};
+  S.obStr=[];S.obWk=[];
+  S.sf={goalMath:600,goalReading:600,hasSat:false,curMath:null,curRead:null,
+    range:40,avUrl:AVATARS[0].url,grade:'11',bio:'',strengths:[],weaknesses:[]};
+  S.scanErr=null;S.scanOk=null;S.mediaPending=null;
+  if(S.matchCh){sb.removeChannel(S.matchCh);S.matchCh=null;}
+  if(S.chatCh){sb.removeChannel(S.chatCh);S.chatCh=null;}
+  
+  $('nav').style.display='none';
+  render(); // Will show login page since S.session=null
+}
+
+/* ── SAT OCR — Multi-PDF + Identity Verification */
+async function handlePDF(file){
+  if(!file)return;
+  const p=S.profile||S.of;
+  S.scanLoading=true;S.scanErr='';S.scanOk='';render();
+  try{
+    const base64=await toBase64(file);
+    const mediaType=file.type||'image/jpeg';
+    const resp=await fetch(SB_URL+'/functions/v1/scan_sat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+SB_ANON},
+      body:JSON.stringify({
+        base64,mediaType,
+        firstName:(p.first_name||p.first||'').trim(),
+        lastInitial:(p.last_initial||(p.last||'').charAt(0)||'').trim()
+      })
+    });
+    let result;
+    try{result=await resp.json();}
+    catch(je){S.scanErr='Unexpected response from scanner. Try again.';S.scanLoading=false;render();return;}
+    if(!resp.ok||result.error){
+      const err=result.error||'';
+      if(err==='NAME_MISMATCH')S.scanErr='Verification failed: name on report does not match your profile.';
+      else if(resp.status===404)S.scanErr='Scanner not set up. Deploy the scan_sat Edge Function in Supabase.';
+      else if(err.includes('credit')||err.includes('billing'))S.scanErr='Scanner out of credits. Contact the app administrator.';
+      else S.scanErr='Scanner error: '+err;
+      S.scanLoading=false;render();return;
+    }
+    const math=result.math&&result.math>=200&&result.math<=800?Math.round(result.math/10)*10:null;
+    const reading=result.reading&&result.reading>=200&&result.reading<=800?Math.round(result.reading/10)*10:null;
+    if(!math||!reading){
+      S.scanErr='Could not extract valid scores. Make sure it is an official College Board SAT score report.';
+      S.scanLoading=false;render();return;
+    }
+    if(S.session){
+      await sb.from('sat_score_submissions').insert({
+        user_id:S.session.user.id,math_score:math,reading_score:reading,
+        file_name:file.name,verified:true
+      });
+      const{data:up}=await sb.from('profiles').select('*').eq('id',S.session.user.id).maybeSingle();
+      if(up){
+        S.profile=up;
+        if(S.sf){S.sf.curMath=up.current_math;S.sf.curRead=up.current_reading;S.sf.hasSat=true;}
+      }
+    }
+    S.of.curMath=math;S.of.curRead=reading;S.of.hasSat=true;
+    await loadUploads();
+    S.scanOk='✓ Score verified — Math '+math+', Reading '+reading+' (superscore updated)';
+  }catch(e){
+    console.error('Scan:',e);
+    if(e.message&&e.message.includes('fetch'))
+      S.scanErr='Could not reach the scanner. Check your internet connection.';
+    else
+      S.scanErr='Unexpected error. Please try again.';
+  }
+  S.scanLoading=false;render();
+}
+
+/* ── NAVIGATION */
+async function gotoTab(tab){
+  S.tab=tab;S.openChat=null;
+  document.querySelectorAll('.nb').forEach(e=>e.classList.remove('on'));
+  const nb=$('nb-'+tab);if(nb)nb.classList.add('on');
+  if(tab==='matches'){
+      loadMatches();
+      // Mark all matches as "read up to now" when opening the tab
+      // This prevents refresh from showing old messages as unread
+      const now=new Date().toISOString();
+      if(S.matches&&S.matches.length){
+        S.matches.forEach(m=>{if(!S.lastRead[m.id])S.lastRead[m.id]=now;});
+        try{localStorage.setItem('pp_lastread',JSON.stringify(S.lastRead));}catch(e){}
+      }
+      loadUnreadCount();
+    }
+  if(tab==='discover'&&!S.feed.length)loadFeed();
+  if(tab==='profile'&&S.profile){
+    S.sf={grade:String(S.profile.grade_level||11),bio:S.profile.bio||'',
+      goalMath:S.profile.goal_math||600,goalReading:S.profile.goal_reading||600,
+      hasSat:!!S.profile.has_taken_sat,curMath:S.profile.current_math||null,
+      curRead:S.profile.current_reading||null,range:S.profile.filter_range||40,
+      notif:!!S.profile.email_notifications_enabled,
+      avUrl:S.profile.avatar_url||AVATARS[0].url,
+      strengths:[...(S.profile.strengths||[])],
+      weaknesses:[...(S.profile.weaknesses||[])],
+      gradeFilter:S.gradeFilter||null};
+    await loadUploads();
+    // If uploads exist, ensure hasSat is true so they show
+    if(S.uploads.length>0&&S.sf){
+      S.sf.hasSat=true;
+      S.sf.curMath=S.profile.current_math||S.sf.curMath;
+      S.sf.curRead=S.profile.current_reading||S.sf.curRead;
+    }
+    render(); // render AFTER uploads loaded
+    return;   // skip the render() below
+  }
+  render();
+}
+
+function openChatView(matchId,partner,archived,matchStatus){
+  S.openChat={matchId,partner,matchStatus};S.chatMsgs=[];S.tab='matches';S.chatArchived=archived;
+  // Mark as read immediately — clears the badge
+  S.lastRead[matchId]=new Date().toISOString();
+  try{localStorage.setItem('pp_lastread',JSON.stringify(S.lastRead));}catch(e){}
+  if(S.unreadPerMatch){delete S.unreadPerMatch[matchId];}
+  S.unreadCount=Object.values(S.unreadPerMatch||{}).reduce((a,b)=>a+b,0);
+  loadChat(matchId);if(!archived)subChat(matchId);render();
+}
+
+function setCat(cat){S.cat=cat;S.feed=[];S.fi=0;loadFeed();render();}
+
+async function initApp(){
+  if(!S.session)return;
+  const app=$('app');
+  if(app)app.innerHTML='<div class="loading-s"><div class="spinner"></div><p>Loading…</p></div>';
+
+  // Restore last-read timestamps
+  try{const stored=localStorage.getItem('pp_lastread');if(stored)S.lastRead=JSON.parse(stored);}catch(e){S.lastRead={};}
+
+  let prof=null,att=0;
+  while(att<3){
+    try{
+      const{data,error}=await sb.from('profiles').select('*').eq('id',S.session.user.id).maybeSingle();
+      if(error&&error.code!=='PGRST116')throw error;
+      prof=data||null;break;
+    }catch(e){att++;if(att<3)await new Promise(r=>setTimeout(r,1000*att));}
+  }
+
+  // Profile is complete if the user has ANYTHING filled in beyond defaults.
+  // We deliberately cast a wide net — if they have a first_name they've
+  // at minimum started onboarding, and we skip straight to discover.
+  const hasName = prof && prof.first_name && prof.first_name.trim().length > 0;
+  const hasAvatar = prof && prof.avatar_url && prof.avatar_url.length > 0;
+  const hasStrengths = prof && prof.strengths && prof.strengths.length > 0;
+  const hasWeaknesses = prof && prof.weaknesses && prof.weaknesses.length > 0;
+  const hasBio = prof && prof.bio && prof.bio.trim().length > 0;
+  const hasCustomGoals = prof && (prof.goal_math !== 600 || prof.goal_reading !== 600);
+  if(prof && prof.is_deleted){
+    S.showAccountDeleted=true;
+    await sb.auth.signOut();
+    S.session=null;
+    render();
+    return;
+  }
+
+  const hasConsent = prof && prof.consent_display_name === true;
+
+  const isComplete = prof && hasConsent;
+
+  if(isComplete){
+    S.profile=prof;
+    $('nav').style.display='flex';
+    subMatches();
+    await Promise.all([loadFeed(), loadUploads()]); // load both in parallel
+    // If user has uploads, ensure profile reflects has_taken_sat
+    if(S.uploads.length>0&&S.profile&&!S.profile.has_taken_sat){
+      S.profile.has_taken_sat=true;
+    }
+    gotoTab('discover');
+    await loadUnreadCount();
+    setInterval(async()=>{await loadUnreadCount();},30000);
+    registerPush();
+  }else if(!prof&&att>=3){
+    // Network error — show retry screen
+    if(app)app.innerHTML='<div class="vgate"><div class="vgate-icon">⚠️</div><h2>Connection Error</h2><p>Could not load your profile. Check your connection and try again.</p><button class="btn-p" onclick="initApp()" style="margin-top:16px">Retry</button><button class="so-btn" onclick="signOut()" style="margin-top:8px">Sign Out</button></div>';
+  }else{
+    // Genuinely new user — send to onboarding
+    if(prof){S.of.first=prof.first_name||S.of.first;S.of.last=prof.last_initial||S.of.last;}
+    S.obStep=1;render();
+  }
+}
+
+/* ── MAIN RENDER */
+function render(){
+  const app=$('app');if(!app)return;
+  updateClock();
+  if(S.showAccountDeleted){app.innerHTML='<div class="vgate"><div class="vgate-icon">🚫</div><h2>Account Deleted</h2><p>This account has been deleted and can no longer be accessed. If this was a mistake, contact support.</p><button class="btn-p" onclick="S.showAccountDeleted=false;S.authMode=\'login\';render()" style="margin-top:16px">Back to Sign In</button></div>';return;}
+  if(S.showRecovery){app.innerHTML=rRecoveryScreen();return;}
+  if(!S.session){app.innerHTML=S.showVerify?rVerifyGate():rAuth();return;}
+  if(!S.profile){app.innerHTML=rOnboard();return;}
+  const scrollEl=app.querySelector('.profs')||app.querySelector('.ob')||app.querySelector('.mlist')||app.querySelector('.cmsgs');
+  const savedScroll=scrollEl?scrollEl.scrollTop:0;const savedClass=scrollEl?(scrollEl.className.split(' ')[0]):null;
+  let html='';
+  if(S.tab==='discover')html=rDiscover();
+  else if(S.tab==='matches')html=S.openChat?rChat():rMatchList();
+  else if(S.tab==='profile')html=rProfile();
+  if(S.showMM&&S.pendingPt)html+=rMatchModal();
+  if(S.showReport)html+=rReportModal();
+  if(S.showUnmatch)html+=rUnmatchConfirm();
+  if(S.showDelConfirm)html+=rDelConfirm();
+  if(S.showResetPw)html+=rResetPwModal();
+  app.innerHTML=html;
+  if(savedClass&&savedScroll>0){const el=app.querySelector('.'+savedClass);if(el)el.scrollTop=savedScroll;}
+  bindPostRender();
+}
+
+/* ── AUTH */
+function rAuth(){
+  const isUp=S.authMode==='signup';
+  const fn=S.af.first||'Alex',ln=S.af.last||'Kim';
+  const preview=`${fn} ${(ln.charAt(0)||'K').toUpperCase()}.`;
+  const ok=!isUp||(S.ac.name&&S.ac.notif&&S.ac.age&&S.af.email&&S.af.password);
+  return `<div class="aw">
+    <div class="logo"><span class="logo-g">PrepPals</span></div>
+    <p class="tagline">Find your Digital SAT study partner.</p>
+    ${S.authErr?`<div class="aerr">${esc(S.authErr)}</div>`:''}
+    ${isUp?`
+    <div class="ig"><label class="lbl">First name</label><input class="inp" id="auth-first" type="text" placeholder="Alex" value="${esc(S.af.first)}" oninput="S.af.first=this.value;updateAuthPreview()"/></div>
+    <div class="ig"><label class="lbl">Last name</label><input class="inp" id="auth-last" type="text" placeholder="Kim" value="${esc(S.af.last)}" oninput="S.af.last=this.value;updateAuthPreview()"/></div>`:''}
+    <div class="ig"><label class="lbl">Email</label><input class="inp" type="email" placeholder="yourname@gmail.com" value="${esc(S.af.email)}" oninput="S.af.email=this.value;updateAuthSubmit()"/></div>
+    <div class="ig"><label class="lbl">Password</label><input class="inp" type="password" placeholder="${isUp?'Min 8 characters':'Your password'}" value="${esc(S.af.password)}" oninput="S.af.password=this.value;updateAuthSubmit()" onkeydown="if(event.key==='Enter')doAuth()"/></div>
+    ${isUp?`<div class="con-block">
+      <div class="con-row ${S.ac.name?'ck':''}" id="con-name" onclick="toggleConsent('name')">
+        <div class="con-box"><svg viewBox="0 0 12 12"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div>
+        <p class="con-txt">My profile name will be displayed publicly as <strong id="auth-preview">${esc(preview)}</strong></p>
+      </div>
+      <div class="con-row ${S.ac.notif?'ck':''}" id="con-notif" onclick="toggleConsent('notif')">
+        <div class="con-box"><svg viewBox="0 0 12 12"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div>
+        <p class="con-txt">I agree to receive email notifications when another student matches with me</p>
+      </div>
+      <div class="con-row ${S.ac.age?'ck':''}" id="con-age" onclick="toggleConsent('age')">
+        <div class="con-box"><svg viewBox="0 0 12 12"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div>
+        <p class="con-txt">I confirm I am <strong>between 13 and 18 years old</strong> (high school age)</p>
+      </div>
+    </div>`:''}
+    <button class="btn-p" id="auth-submit" onclick="doAuth()" ${S.authLoading||!ok?'disabled':''}>
+      ${S.authLoading?'Please wait…':isUp?'Create Account':'Sign In'}
+    </button>
+    <p class="asw">${isUp?'Already have an account?':"Don't have an account?"}
+      <button onclick="switchAuthMode()">${isUp?'Sign In':'Sign Up'}</button></p>
+    ${!isUp?'<p style="text-align:center;font-size:11px;color:var(--t3);margin-top:14px;opacity:.75">Forgot your password? <a href="mailto:support@preppals.app?subject=Forgot%20Password&body=Hi%2C%20I%20forgot%20my%20password%20for%20my%20PrepPals%20account%20registered%20with%20this%20email." style="color:var(--t2);font-weight:500;text-decoration:underline">Contact support</a></p>':''}
+  </div>`;
+}
+
+function rVerifyGate(){
+  return `<div class="vgate">
+    <div class="vgate-icon">📬</div>
+    <h2>Check your inbox</h2>
+    <div class="vgate-box"><strong>Almost there!</strong> We sent a verification link to your email address. Click it to confirm your account before signing in.</div>
+    <p>Once verified, return here and sign in with your email and password.</p>
+    <button class="btn-p" onclick="S.showVerify=false;S.authMode='login';render()">Back to Sign In</button>
+  </div>`;
+}
+
+/* ── ONBOARDING */
+function rOnboard(){const s=S.obStep;if(s===1)return rOb1();if(s===2)return rOb2();if(s===3)return rOb3();if(s===4)return rOb4();return rOb5();}
+
+function rOb1(){
+  const f=S.of,g=parseInt(f.grade),ok=f.first&&f.last&&g>=8&&g<=12;
+  return `<div class="ob">
+    <p class="ob-step">Step 1 of 5 — Profile Basics</p>
+    <h2 class="ob-title">Tell us about yourself</h2>
+    <p class="ob-sub">Students see your first name and last initial only.</p>
+    <div class="ig"><label class="lbl">First name</label><input class="inp" type="text" value="${esc(f.first)}" oninput="S.of.first=this.value" placeholder="Alex"/></div>
+    <div class="ig"><label class="lbl">Last name</label><input class="inp" type="text" value="${esc(f.last)}" oninput="S.of.last=this.value" placeholder="Kim"/></div>
+    <div class="ig"><label class="lbl">Grade level (8–12)</label>
+      <div class="grade-step">
+        <button class="step-btn" onclick="S.of.grade=String(Math.max(8,parseInt(S.of.grade)-1));render()" ${g<=8?'disabled':''}>−</button>
+        <span class="grade-val">${f.grade}<small style="font-size:13px;font-weight:400">th</small></span>
+        <button class="step-btn" onclick="S.of.grade=String(Math.min(12,parseInt(S.of.grade)+1));render()" ${g>=12?'disabled':''}>+</button>
+      </div>
+    </div>
+    <div class="ig"><label class="lbl">Bio (optional)</label><input class="inp" type="text" value="${esc(f.bio)}" oninput="S.of.bio=this.value" placeholder="Aiming for 1450+, love math…"/></div>
+    <button class="btn-p" onclick="S.obStep=2;render()" ${!ok?'disabled':''}>Continue →</button>
+  </div>`;
+}
+
+function rOb2(){
+  return `<div class="ob">
+    <p class="ob-step">Step 2 of 5 — Choose Avatar</p>
+    <h2 class="ob-title">Pick your study persona</h2>
+    <p class="ob-sub">Your avatar appears on your discovery card.</p>
+    <div class="av-grid">
+      ${AVATARS.map(av=>`<div class="av-opt ${S.of.avUrl===av.url?'on':''}" onclick="S.of.avUrl='${esc(av.url)}';render()">
+        <img src="${esc(av.url)}" alt="${esc(av.label)}" loading="lazy" onerror="this.parentNode.style.opacity='.5'"/>
+        <span>${esc(av.label)}</span>
+      </div>`).join('')}
+    </div>
+    <button class="btn-p" onclick="S.obStep=3;render()">Continue →</button>
+    <button class="back-t" onclick="S.obStep=1;render()">← Back</button>
+  </div>`;
+}
+
+function rOb3(){
+  const f=S.of,gmP=pct(f.goalMath,200,800),grP=pct(f.goalReading,200,800);
+  return `<div class="ob">
+    <p class="ob-step">Step 3 of 5 — SAT Goals</p>
+    <h2 class="ob-title">Set your target scores</h2>
+    <p class="ob-sub">These power your filtered discovery feed.</p>
+    <div class="sl-g">
+      <div class="sl-h"><span class="sl-lbl">📖 Reading Goal</span><span class="sl-v-b" id="ob-grv">${f.goalReading}</span></div>
+      <input type="range" class="sl-b" min="200" max="800" step="10" value="${f.goalReading}" style="--pct:${grP}" oninput="S.of.goalReading=parseInt(this.value);setSlidePct(this);$('ob-grv').textContent=this.value"/>
+      <div class="sl-marks"><span>200</span><span>500</span><span>800</span></div>
+    </div>
+    <div class="sl-g">
+      <div class="sl-h"><span class="sl-lbl">📐 Math Goal</span><span class="sl-v-p" id="ob-gmv">${f.goalMath}</span></div>
+      <input type="range" class="sl-p" min="200" max="800" step="10" value="${f.goalMath}" style="--pct:${gmP}" oninput="S.of.goalMath=parseInt(this.value);setSlidePct(this);$('ob-gmv').textContent=this.value"/>
+      <div class="sl-marks"><span>200</span><span>500</span><span>800</span></div>
+    </div>
+    <p style="font-size:13px;font-weight:500;color:var(--t2);margin-bottom:10px">Have you taken the official SAT?</p>
+    <div style="display:flex;gap:9px;margin-bottom:14px">
+      <button class="chip ${!f.hasSat?'on':''}" onclick="S.of.hasSat=false;S.scanErr='';S.scanOk='';render()">Not yet</button>
+      <button class="chip ${f.hasSat?'on':''}" onclick="S.of.hasSat=true;render()">Yes, I have</button>
+    </div>
+    ${f.hasSat?rScanSection():''}
+    ${f.hasSat&&!S.scanOk?'<p style="font-size:12px;color:#f59e0b;margin-top:10px;text-align:center">⚠️ Please upload and verify your SAT score report to continue.</p>':''}
+    <button class="btn-p" style="margin-top:12px;${f.hasSat&&!S.scanOk?'opacity:0.4;pointer-events:none':''}" onclick="S.obStep=4;render()" ${f.hasSat&&!S.scanOk?'disabled':''}>Continue →</button>
+    <button class="back-t" onclick="S.obStep=2;render()">← Back</button>
+  </div>`;
+}
+
+function rScanSection(){
+  const f=S.of;
+  return `<div>
+    <p style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:7px">Upload SAT Score Report PDFs</p>
+    ${S.scanErr?`<div class="up-err">${esc(S.scanErr)}</div>`:''}
+    ${S.scanOk?`<div class="up-ok">${esc(S.scanOk)}</div>`:''}
+    ${S.scanLoading?`<div class="up-proc"><div class="spinner"></div><span>AI verifying identity & scanning…</span></div>`:''}
+    <div class="up-z">
+      <input type="file" accept="application/pdf,image/*" multiple onchange="[...this.files].forEach(handlePDF)"/>
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <p>Tap to upload score report(s)</p>
+      <small>PDF or image · We verify your name, then extract your superscore</small>
+    </div>
+    ${S.uploads.length?`<div class="up-list">${S.uploads.map(u=>`<div class="up-item">
+      <div class="up-item-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="up-item-nm">${esc(u.name)}</div><div class="up-item-sc">Math ${u.math} · Reading ${u.reading}</div></div>
+    </div>`).join('')}</div>`:''}
+    <div style="display:flex;gap:9px;margin-top:10px">
+      <div style="flex:1"><label class="lbl">Current Math</label>
+        <input class="inp" type="number" min="200" max="800" step="10" value="${f.curMath||''}" placeholder="680" style="padding:9px 12px" readonly style="background:var(--card2);cursor:not-allowed"/></div>
+      <div style="flex:1"><label class="lbl">Current Reading</label>
+        <input class="inp" type="number" min="200" max="800" step="10" value="${f.curRead||''}" placeholder="650" style="padding:9px 12px" readonly style="background:var(--card2);cursor:not-allowed"/></div>
+    </div>
+  </div>`;
+}
+
+function rOb4(){
+  const f=S.of,rP=pct(f.range,10,50),pips=[10,20,30,40,50].map(v=>`<div class="fp ${v<=f.range?'on':''}"></div>`).join('');
+  return `<div class="ob">
+    <p class="ob-step">Step 4 of 5 — Strengths & Range</p>
+    <h2 class="ob-title">Where do you shine?</h2>
+    <p class="ob-sub">Pick up to 4 areas where you can help others.</p>
+    <div class="chip-g">${SUBS.map(s=>`<button class="chip ${S.obStr.includes(s)?'on':''}" onclick="toggleStr('${s}')">${s}</button>`).join('')}</div>
+    <div class="sl-g">
+      <div class="sl-h"><span class="sl-lbl">Discovery Range</span><span class="sl-v-b" id="ob-rv">±${f.range}</span></div>
+      <input type="range" class="sl-b" min="10" max="50" step="10" value="${f.range}" style="--pct:${rP}" oninput="S.of.range=parseInt(this.value);setSlidePct(this);$('ob-rv').textContent='±'+this.value;render()"/>
+      <div class="filt-pips">${pips}</div>
+      <div class="sl-marks"><span>±10</span><span>±20</span><span>±30</span><span>±40</span><span>±50</span></div>
+    </div>
+    <button class="btn-p" onclick="S.obStep=5;render()">Continue →</button>
+    <button class="back-t" onclick="S.obStep=3;render()">← Back</button>
+  </div>`;
+}
+
+function rOb5(){
+  return `<div class="ob">
+    <p class="ob-step">Step 5 of 5 — Areas to Improve</p>
+    <h2 class="ob-title">Where do you need help?</h2>
+    <p class="ob-sub">Honest answers lead to better matches.</p>
+    <div class="chip-g">${SUBS.map(s=>`<button class="chip ${S.obWk.includes(s)?'on':''}" onclick="toggleWk('${s}')">${s}</button>`).join('')}</div>
+    <button class="btn-p" onclick="saveOnboarding()">Create Profile →</button>
+    <button class="back-t" onclick="S.obStep=4;render()">← Back</button>
+  </div>`;
+}
+
+function toggleStr(s){if(S.obStr.includes(s))S.obStr=S.obStr.filter(x=>x!==s);else if(S.obStr.length<4)S.obStr.push(s);render();}
+function toggleWk(s){if(S.obWk.includes(s))S.obWk=S.obWk.filter(x=>x!==s);else if(S.obWk.length<4)S.obWk.push(s);render();}
+
+/* ── DISCOVER */
+function renderDiscoverCards(){
+  const q=(S.discSearch||'').toLowerCase().trim();
+  const visibleFeed=S.feed.filter(p=>{
+    if(S.showBookmarked&&!S.bookmarks.has(p.id))return false;if(!S.showBookmarked&&S.bookmarks.has(p.id))return false;
+    if(q){const name=((p.first_name||'')+' '+(p.last_initial||'')).toLowerCase();if(!name.includes(q))return false;}
+    return true;
+  });
+  const card=visibleFeed[0],next=visibleFeed[1];
+  const isEng=S.cat==='english';
+  const gf=isEng?'goal_reading':'goal_math';
+  const cardStack=document.querySelector('.card-stack');
+  const actRow=document.querySelector('.act-row');
+  if(!cardStack)return;
+
+  if(!card&&(q||S.showBookmarked)){
+    cardStack.innerHTML=`<div class="empty-s"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><h3>${S.showBookmarked?'No bookmarks found':'No results'}</h3><p>${S.showBookmarked?'You have no bookmarked profiles matching your search.':'No students match your search.'}</p></div>`;
+    if(actRow)actRow.style.display='none';
+    return;
+  }
+  if(!card){
+    cardStack.innerHTML=`<div class="empty-s"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><h3>All caught up!</h3><p>No students in your score range right now.</p></div>`;
+    if(actRow)actRow.style.display='none';
+    return;
+  }
+  if(actRow)actRow.style.display='';
+  cardStack.innerHTML=`<div class="cslot">
+    ${next?`<div class="pcard behind"><div class="cav-area" style="background:${cardBg(next.id)}">${next.avatar_url?`<img src="${esc(next.avatar_url)}" alt="" loading="lazy"/>`:`<div class="cav-init">${initials(next)}</div>`}</div><div class="cbody"><div class="cname">${esc(next.first_name)} ${esc(next.last_initial)}.</div></div></div>`:''}
+    <div class="pcard" id="acard">
+      <div class="stamp stamp-like" id="stamp-like">Study Pal!</div>
+      <div class="stamp stamp-pass" id="stamp-pass">Pass</div>
+      <div class="cav-area" style="background:${cardBg(card.id)}">
+        ${card.avatar_url?`<img src="${esc(card.avatar_url)}" alt="" loading="lazy"/>`:`<div class="cav-init">${initials(card)}</div>`}
+        <div class="c-grade">Grade ${card.grade_level}</div>
+        <div class="c-sbadge">${isEng?'📖':'📐'} ${card[gf]||'—'}</div>
+        <button class="c-bk ${S.bookmarks.has(card.id)?'on':''}" onclick="event.stopPropagation();toggleBk('${card.id}')">
+          <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+      </div>
+      <div class="cbody">
+        <div class="cname">${esc(card.first_name)} ${esc(card.last_initial)}.</div>
+        ${card.bio?`<p class="cbio">${esc(card.bio)}</p>`:''}
+        <div class="score-pills">
+          <div class="spill blue"><div class="spill-lbl">Reading Goal</div><div class="spill-val">${card.goal_reading||'—'}</div></div>
+          <div class="spill pink"><div class="spill-lbl">Math Goal</div><div class="spill-val">${card.goal_math||'—'}</div></div>
+          ${card.has_taken_sat?`<div class="spill" style="background:#F3F4F6;color:var(--t2)"><div class="spill-lbl" style="color:var(--t3)">Current</div><div class="spill-val" style="font-size:12.5px">${card.current_math||'?'}/${card.current_reading||'?'}</div></div>`:`<div class="spill nosat"><div class="spill-val">Hasn't taken the SAT yet</div></div>`}
+        </div>
+        <div class="tag-row">
+          ${(card.strengths||[]).slice(0,3).map(s=>`<span class="tag str"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>${esc(s)}</span>`).join('')}
+          ${(card.weaknesses||[]).slice(0,2).map(w=>`<span class="tag wk"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>${esc(w)}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>`;
+  bindPostRender();
+}
+
+function rDiscover(){
+  const isEng=S.cat==='english';
+  const rng=S.profile?.filter_range||40;
+  const gf=isEng?'goal_reading':'goal_math',myG=isEng?(S.profile?.goal_reading||600):(S.profile?.goal_math||600);
+
+  // Filter feed by search and bookmarks
+  const q=(S.discSearch||'').toLowerCase().trim();
+  const visibleFeed=S.feed.filter(p=>{
+    if(S.showBookmarked&&!S.bookmarks.has(p.id))return false;if(!S.showBookmarked&&S.bookmarks.has(p.id))return false;
+    if(q){
+      const name=((p.first_name||'')+' '+(p.last_initial||'')).toLowerCase();
+      if(!name.includes(q))return false;
+    }
+    return true;
+  });
+  const card=visibleFeed[0],next=visibleFeed[1];
+
+  const feedContent=S.feedLoading?`<div class="loading-s"><div class="spinner"></div><p>Finding study partners…</p></div>`:
+  !card&&(q||S.showBookmarked)?`<div class="empty-s"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><h3>${S.showBookmarked?'No bookmarks found':'No results'}</h3><p>${S.showBookmarked?'You have no bookmarked profiles matching your search.':'No students match your search.'}</p></div>`:
+  !card?`<div class="empty-s">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <h3>All caught up!</h3>
+    <p>No students in your score range right now. Widen your range in Profile or check back soon.</p>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:7px"><div class="pdot"></div><span style="font-size:12px;color:var(--t3)">Searching for partners</span></div>
+  </div>`:
+  `<div class="cslot">
+    ${next?`<div class="pcard behind">
+      <div class="cav-area" style="background:${cardBg(next.id)}">
+        ${next.avatar_url?`<img src="${esc(next.avatar_url)}" alt="" loading="lazy"/>`:`<div class="cav-init">${initials(next)}</div>`}
+      </div>
+      <div class="cbody"><div class="cname">${esc(next.first_name)} ${esc(next.last_initial)}.</div></div>
+    </div>`:''}
+    <div class="pcard" id="acard">
+      <div class="stamp stamp-like" id="stamp-like">Study Pal!</div>
+      <div class="stamp stamp-pass" id="stamp-pass">Pass</div>
+      <div class="cav-area" style="background:${cardBg(card.id)}">
+        ${card.avatar_url?`<img src="${esc(card.avatar_url)}" alt="" loading="lazy"/>`:`<div class="cav-init">${initials(card)}</div>`}
+        <div class="c-grade">Grade ${card.grade_level}</div>
+        <div class="c-sbadge">${isEng?'📖':'📐'} ${card[gf]||'—'}</div>
+        <button class="c-bk ${S.bookmarks.has(card.id)?'on':''}" onclick="event.stopPropagation();toggleBk('${card.id}')">
+          <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+      </div>
+      <div class="cbody">
+        <div class="cname">${esc(card.first_name)} ${esc(card.last_initial)}.</div>
+        ${card.bio?`<p class="cbio">${esc(card.bio)}</p>`:''}
+        <div class="score-pills">
+          <div class="spill blue"><div class="spill-lbl">Reading Goal</div><div class="spill-val">${card.goal_reading||'—'}</div></div>
+          <div class="spill pink"><div class="spill-lbl">Math Goal</div><div class="spill-val">${card.goal_math||'—'}</div></div>
+          ${card.has_taken_sat
+            ?`<div class="spill" style="background:#F3F4F6;color:var(--t2)"><div class="spill-lbl" style="color:var(--t3)">Current</div><div class="spill-val" style="font-size:12.5px">${card.current_math||'?'}/${card.current_reading||'?'}</div></div>`
+            :`<div class="spill nosat"><div class="spill-val">Hasn't taken the SAT yet</div></div>`}
+        </div>
+        <div class="tag-row">
+          ${(card.strengths||[]).slice(0,3).map(s=>`<span class="tag str"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>${esc(s)}</span>`).join('')}
+          ${(card.weaknesses||[]).slice(0,2).map(w=>`<span class="tag wk"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>${esc(w)}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  return `
+  <div class="dh">
+    <span class="app-logo"><span>PrepPals</span></span>
+    <button class="icon-btn" onclick="openRep()" title="Report">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+    </button>
+  </div>
+  <div class="disc-search-row">
+    <input class="disc-search" type="text" placeholder="Search by name…" value="${esc(S.discSearch||'')}"
+      oninput="S.discSearch=this.value;renderDiscoverCards()"/>
+    <button class="bk-filter-btn ${S.showBookmarked?'on':''}" onclick="S.showBookmarked=!S.showBookmarked;render()">
+      <svg viewBox="0 0 24 24" width="12" height="12" fill="${S.showBookmarked?'white':'none'}" stroke="${S.showBookmarked?'white':'currentColor'}" stroke-width="2" style="margin-right:4px;vertical-align:middle"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Saved
+    </button>
+  </div>
+  <div class="cat-tabs">
+    <button class="ct ${isEng?'blue-on':''}" onclick="setCat('english')">📖 English</button>
+    <button class="ct ${!isEng?'pink-on':''}" onclick="setCat('math')">📐 Math</button>
+  </div>
+  <div class="rt-row">
+    <div class="rt-dot ${S.rtConn?'':'off'}"></div>
+    <span>${S.rtConn?'Live matching active':'Connecting…'}</span>
+    <span style="margin-left:auto;font-size:10.5px">Range ±${rng} pts</span>
+  </div>
+  <div class="card-stack">${feedContent}</div>
+  ${card&&!S.feedLoading?`
+  <div class="act-row">
+    <button class="act-btn btn-skip" onclick="doSkip()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="act-btn btn-more" onclick="openRep()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+    <button class="act-btn btn-hrt" onclick="doHeart()"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="white"/></svg></button>
+  </div>`:''}`;
+}
+
+function openRep(){const c=S.feed[S.fi];if(!c)return;S.repTarget=c.id;S.showReport=true;render();}
+
+/* ── MATCH LIST */
+function rMatchList(){
+  const uid=S.session?.user.id,isAct=S.subTab==='active';
+  const list=isAct?S.matches:S.archiveMatches;
+  const inner=S.matchesLoading?`<div class="loading-s"><div class="spinner"></div><p>Loading…</p></div>`:
+  !list.length?`<div class="empty-s">
+    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <h3>${isAct?'No matches yet':'Archive is empty'}</h3>
+    <p>${isAct?'When you and another student both heart each other, you can chat here.':'Unmatched conversations appear here.'}</p>
+  </div>`:
+  list.map(m=>{
+    const p=m.partner,name=p?`${esc(p.first_name)} ${esc(p.last_initial)}.`:'Study Partner';
+    const rawLm=m.lastMsg?m.lastMsg.message_text:'';
+    const lm=rawLm.startsWith('[IMAGE]')?'📷 Photo':rawLm.startsWith('[VIDEO]')?'🎬 Video':rawLm?esc(rawLm):'Tap to start studying!';
+    const t=relTime(m.lastMsg?.created_at||m.created_at),arch=m.status==='unmatched'||m.status==='deleted_user';
+    const pJ=JSON.stringify(p||{}).replace(/"/g,'&quot;');
+    return `<div class="mrow" onclick="openChatView('${m.id}',${pJ},${arch},'${m.status||""}')">
+      <div class="mav-wrap">
+        <div class="mav">${p?.avatar_url?`<img src="${esc(p.avatar_url)}" alt="" loading="lazy"/>`:initials(p)}</div>
+        ${(S.unreadPerMatch&&S.unreadPerMatch[m.id])?`<span class="mav-badge">${S.unreadPerMatch[m.id]>99?'99+':String(S.unreadPerMatch[m.id])}</span>`:''}
+      </div>
+      <div class="minf"><div class="mname">${name}</div><div class="mmsg">${lm}</div></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        <span class="mtime">${t}</span>${arch?'<span class="arch-badge">Archived</span>':''}
+      </div>
+    </div>`;
+  }).join('');
+
+  return `
+  <div class="mhdr">
+    <div class="mhdr-top"><span class="mhdr-title">Study Matches</span>
+    <span class="mhdr-ct">${S.matches.length} active</span></div>
+  </div>
+  <div class="m-subtabs">
+    <button class="mst ${S.subTab==='active'?'on':''}" onclick="S.subTab='active';render()">Active</button>
+    <button class="mst ${S.subTab==='archive'?'arch-on':''}" onclick="S.subTab='archive';render()">Archive</button>
+  </div>
+  <div class="mlist">${inner}</div>`;
+}
+
+/* ── CHAT */
+function rChat(){
+  const{openChat:ch,chatMsgs:msgs,chatLoading,session,chatArchived:arch}=S;
+  if(!ch||!session)return '';
+  const p=ch.partner,uid=session.user.id;
+  const name=p?`${esc(p.first_name)} ${esc(p.last_initial)}.`:'Study Partner';
+  const msgsHtml=chatLoading?`<div class="loading-s"><div class="spinner"></div></div>`:
+  msgs.length===0?`<div class="sys-msg" style="margin-top:auto">${S.openChat?.match?.status==='deleted_user'?'This user has deleted their account.':arch?'This conversation is archived.':'Matched! Send a message to start studying 👋'}</div>`:
+  `<div class="sys-msg">${arch?'Archived conversation':'You matched — let\'s study!'}</div>`+
+  msgs.map(m=>{
+    const out=m.sender_id===uid;
+    const txt=m.message_text||'';
+    let body='';
+    if(txt.startsWith('[IMAGE]')){
+      const src=esc(txt.slice(7));
+      body=`<img src="${src}" style="max-width:210px;border-radius:12px;display:block;cursor:pointer;margin-top:3px" onclick="S.showLightbox=true;S.lightboxSrc='${src}';S.lightboxType='image';render()" loading="lazy"/>`;
+    }else if(txt.startsWith('[VIDEO]')){
+      const src=esc(txt.slice(7));
+      body=`<video src="${src}" style="max-width:220px;border-radius:12px;display:block;margin-top:3px" controls playsinline></video>`;
+    }else{
+      body=esc(txt);
+    }
+    const isLast=msgs.indexOf(m)===msgs.length-1;
+    let status='';
+    if(out){
+      if(m.read_at) status='<span class="msg-status">✓✓ Read</span>';
+      else status='<span class="msg-status">✓ Delivered</span>';
+    }
+    return `<div class="msg ${out?'msg-out':'msg-in'}">${body}<div class="msg-t">${shortTime(m.created_at)}${out&&isLast?status:''}</div></div>`;
+  }).join('');
+
+  return `
+  <div class="chdr">
+    <button class="back-btn" onclick="S.openChat=null;render()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div class="chdr-av">${p?.avatar_url?`<img src="${esc(p.avatar_url)}" alt="" loading="lazy"/>`:initials(p)}</div>
+    <div style="min-width:0">
+      <div class="chdr-name">${name}</div>
+      ${S.openChat?.match?.status==='deleted_user'?'<div class="chdr-sub arch">User deleted account</div>':arch?'<div class="chdr-sub arch">Archived</div>':''}
+    </div>
+    ${!arch?`<button class="chdr-unmatch" onclick="S.unmatchId='${ch.matchId}';S.showUnmatch=true;render()">Unmatch</button>`:''}
+  </div>
+  ${arch?`<div class="arch-banner"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>You or the other person has unmatched or deleted his/her account. This conversation is read-only.</span></div>`:''}
+  <div class="cmsgs" id="cmsgs">${msgsHtml}</div>
+  ${!arch?`
+  ${S.mediaPending?`<div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--navy-s);border-top:1px solid var(--navy-b);font-size:12.5px;color:var(--navy2);flex-shrink:0">
+    ${S.mediaPending.type==='image'?`<img src="${S.mediaPending.dataUrl}" style="width:38px;height:38px;border-radius:7px;object-fit:cover"/>`:
+    `<video src="${S.mediaPending.dataUrl}" style="width:38px;height:38px;border-radius:7px;object-fit:cover"></video>`}
+    <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">${esc(S.mediaPending.file.name)}</span>
+    <button onclick="S.mediaPending=null;updateSendBtn();render()" style="background:none;border:none;color:var(--navy2);cursor:pointer;font-size:20px;line-height:1;padding:0 4px">×</button>
+  </div>`:''}
+  <div class="cinp-bar">
+    <input type="file" id="mfin" style="display:none" accept="image/*,video/*" onchange="pickMedia(event)"/>
+    <button onclick="document.getElementById('mfin').click()" title="Send photo or video" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--bdr);background:var(--card2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+      <svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--t2);stroke-width:1.8;fill:none"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    </button>
+    <input class="cinp" id="cinp" type="text" placeholder="${S.mediaPending?'Add a caption…':'Message…'}" oninput="S.chatInput=this.value;updateSendBtn()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}" onfocus="scrollChat()" value="${esc(S.chatInput)}"/>
+    <button class="csend" id="csend-btn" onclick="sendMsg()" ${!S.chatInput.trim()&&!S.mediaPending?'disabled':''}>
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>`:''}`;
+}
+
+/* ── PROFILE / SETTINGS */
+function rProfile(){
+  const p=S.profile;if(!p)return '';
+  const f=S.sf||{};
+  const g=parseInt(f.grade||p.grade_level||11);
+  const notif=f.notif!==undefined?f.notif:!!p.email_notifications_enabled;
+  const fr=f.range||p.filter_range||40;
+  const grP=pct(f.goalReading||p.goal_reading||600,200,800);
+  const gmP=pct(f.goalMath||p.goal_math||600,200,800);
+  const frP=pct(fr,10,50);
+  const pips=[10,20,30,40,50].map(v=>`<div class="fp ${v<=fr?'on':''}"></div>`).join('');
+
+  return `<div class="profs">
+  <div class="prof-hero">
+    <div class="prof-av">${p.avatar_url?`<img src="${esc(p.avatar_url)}" alt="" loading="lazy"/>`:(p.first_name.charAt(0)+p.last_initial)}</div>
+    <span class="prof-name">${esc(p.first_name)} ${esc(p.last_initial)}.</span>
+  </div>
+  <div class="pbody">
+    <p class="sec-lbl">Basic Info</p>
+    <div class="icard">
+      <div class="irow">
+        <span class="irow-lbl"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Grade level (8–12)</span>
+        <div class="grade-step">
+          <button class="step-btn" onclick="S.sf.grade=String(Math.max(8,parseInt(S.sf.grade)-1));render()" ${g<=8?'disabled':''}>−</button>
+          <span class="grade-val" style="font-size:16px;min-width:32px">${g}th</span>
+          <button class="step-btn" onclick="S.sf.grade=String(Math.min(12,parseInt(S.sf.grade)+1));render()" ${g>=12?'disabled':''}>+</button>
+        </div>
+      </div>
+      <div class="irow" style="flex-direction:column;align-items:flex-start;gap:6px">
+        <label class="lbl">Bio</label>
+        <input class="inp" type="text" value="${esc(f.bio||p.bio||'')}" oninput="S.sf.bio=this.value" placeholder="Short bio…"/>
+      </div>
+    </div>
+
+    <p class="sec-lbl">Avatar</p>
+    <div class="icard" style="padding:14px">
+      <div class="av-grid">
+        ${AVATARS.map(av=>{const sel=(S.sf.avUrl||p.avatar_url)===av.url;return '<div class="av-opt '+(sel?'on':'')+'" onclick="S.sf.avUrl=\''+av.url+'\';render()" style="cursor:pointer"><img src="'+esc(av.url)+'" alt="'+esc(av.label)+'" loading="lazy"/><span>'+esc(av.label)+'</span></div>';}).join('')}
+      </div>
+    </div>
+
+    <p class="sec-lbl">Strengths <span style="font-size:10px;color:var(--t3);font-weight:400">(pick up to 4)</span></p>
+    <div class="icard" style="padding:12px 14px">
+      <div class="chip-g" style="margin-bottom:0">
+        ${SUBS.map(s=>{const on=(S.sf.strengths||[]).includes(s);return '<button class="chip '+(on?'on':'')+'" onclick="toggleSfStr(\''+s+'\')">'+s+'</button>';}).join('')}
+      </div>
+    </div>
+
+    <p class="sec-lbl">Weaknesses <span style="font-size:10px;color:var(--t3);font-weight:400">(pick up to 4)</span></p>
+    <div class="icard" style="padding:12px 14px">
+      <div class="chip-g" style="margin-bottom:0">
+        ${SUBS.map(s=>{const on=(S.sf.weaknesses||[]).includes(s);return '<button class="chip '+(on?'on':'')+'" onclick="toggleSfWk(\''+s+'\')">'+s+'</button>';}).join('')}
+      </div>
+    </div>
+
+    <p class="sec-lbl">SAT Goals</p>
+    <div class="icard"><div style="padding:13px 14px">
+      <div class="sl-g">
+        <div class="sl-h"><span class="sl-lbl">📖 Reading Goal</span><span class="sl-v-b" id="sf-grv">${f.goalReading||p.goal_reading||600}</span></div>
+        <input type="range" class="sl-b" min="200" max="800" step="10" value="${f.goalReading||p.goal_reading||600}" style="--pct:${grP}" oninput="S.sf.goalReading=parseInt(this.value);setSlidePct(this);$('sf-grv').textContent=this.value"/>
+        <div class="sl-marks"><span>200</span><span>500</span><span>800</span></div>
+      </div>
+      <div class="sl-g">
+        <div class="sl-h"><span class="sl-lbl">📐 Math Goal</span><span class="sl-v-p" id="sf-gmv">${f.goalMath||p.goal_math||600}</span></div>
+        <input type="range" class="sl-p" min="200" max="800" step="10" value="${f.goalMath||p.goal_math||600}" style="--pct:${gmP}" oninput="S.sf.goalMath=parseInt(this.value);setSlidePct(this);$('sf-gmv').textContent=this.value"/>
+        <div class="sl-marks"><span>200</span><span>500</span><span>800</span></div>
+      </div>
+    </div></div>
+
+    <p class="sec-lbl">My SAT Scores</p>
+    <div class="icard">
+      ${(f.hasSat!==undefined?f.hasSat:!!p.has_taken_sat)?`
+      <div class="irow">
+        <span class="irow-lbl" style="display:flex;flex-direction:column;gap:2px">
+          <span>Superscore Math</span>
+          <span style="font-size:11px;color:var(--t3)">Highest across all uploads</span>
+        </span>
+        <span style="font-size:20px;font-weight:700;color:var(--pink)">${f.curMath||p.current_math||'--'}</span>
+      </div>
+      <div class="irow">
+        <span class="irow-lbl" style="display:flex;flex-direction:column;gap:2px">
+          <span>Superscore Reading</span>
+          <span style="font-size:11px;color:var(--t3)">Highest across all uploads</span>
+        </span>
+        <span style="font-size:20px;font-weight:700;color:var(--navy2)">${f.curRead||p.current_reading||'--'}</span>
+      </div>
+      <div style="padding:12px 14px;border-top:1px solid var(--bdr)">
+        ${S.uploads.length?'<p style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:8px">Previous Uploads</p><div class="up-list" style="margin-bottom:10px">'+S.uploads.map(u=>'<div class="up-item"><div class="up-item-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="up-item-nm">Score verified ✓</div><div class="up-item-sc">Math '+u.math+' &middot; Reading '+u.reading+'</div></div></div>').join('')+'</div>':''}
+        <p style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:6px">${S.uploads.length?'Upload New Report':'Upload Score Report'}</p>
+        <p style="font-size:12px;color:var(--t2);line-height:1.5;margin-bottom:8px">New scores are compared with previous uploads. The highest scores become your superscore.</p>
+        <div class="up-z">
+          <input type="file" accept="application/pdf,image/*" multiple onchange="[...this.files].forEach(handlePDF)"/>
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <p>${S.uploads.length?'Tap to upload another report':'Tap to upload score report'}</p>
+          <small>PDF or image &middot; Name verified &middot; Superscore auto-calculated</small>
+        </div>
+        ${S.scanLoading?'<div class="up-proc" style="margin-top:8px"><div class="spinner"></div><span>Scanning…</span></div>':''}
+        ${S.scanErr?'<div class="up-err" style="margin-top:8px">'+esc(S.scanErr)+'</div>':''}
+        ${S.scanOk?'<div class="up-ok" style="margin-top:8px">'+esc(S.scanOk)+'</div>':''}
+      </div>
+      `:`
+      <div style="padding:14px">
+        <p style="font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:5px">No SAT scores yet</p>
+        <p style="font-size:12.5px;color:var(--t2);line-height:1.5;margin-bottom:12px">Upload your official College Board SAT score report. We verify your name and track your superscore.</p>
+        <div class="up-z">
+          <input type="file" accept="application/pdf,image/*" multiple onchange="S.sf.hasSat=true;[...this.files].forEach(handlePDF)"/>
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <p>Tap to upload score report</p>
+          <small>PDF or image &middot; Name verified automatically</small>
+        </div>
+        ${S.scanLoading?'<div class="up-proc" style="margin-top:8px"><div class="spinner"></div><span>Scanning…</span></div>':''}
+        ${S.scanErr?'<div class="up-err" style="margin-top:8px">'+esc(S.scanErr)+'</div>':''}
+        ${S.scanOk?'<div class="up-ok" style="margin-top:8px">'+esc(S.scanOk)+'</div>':''}
+      </div>
+      `}
+    </div>
+
+    <p class="sec-lbl">Notifications</p>
+    <div class="icard"><div class="ios-row">
+      <div><div class="ios-lbl-title">Matches</div><div class="ios-lbl-sub">When you and someone like each other</div></div>
+      <label class="ios-tog">
+        <input type="checkbox" ${notif?'checked':''} onchange="toggleNotif(this.checked)"/>
+        <div class="ios-track"></div><div class="ios-thumb"></div>
+      </label>
+    </div></div>
+
+    <p class="sec-lbl">Grade Filter</p>
+    <div class="icard" style="padding:12px 14px">
+      <p style="font-size:12px;color:var(--t2);margin-bottom:10px;line-height:1.5">Only show students from a specific grade on your discovery feed. Hit Save to apply.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:7px">
+        <button class="chip ${!S.sf.gradeFilter?'on':''}" onclick="setSfGrade(null)">All Grades</button>
+        ${[8,9,10,11,12].map(g=>'<button class="chip '+(S.sf.gradeFilter===g?'on':'')+'" onclick="setSfGrade('+g+')">'+g+'th Grade</button>').join('')}
+      </div>
+    </div>
+
+    <p class="sec-lbl">Discovery Range</p>
+    <div class="icard"><div style="padding:13px 14px">
+      <div class="sl-h" style="margin-bottom:7px"><span class="sl-lbl">Score window</span><span class="sl-v-b" id="sf-rv">±${fr}</span></div>
+      <input type="range" class="sl-b" min="10" max="50" step="10" value="${fr}" style="--pct:${frP}" oninput="S.sf.range=parseInt(this.value);$('sf-rv').textContent='±'+this.value;setSlidePct(this);render()"/>
+      <div class="filt-pips">${pips}</div>
+      <div class="sl-marks"><span>±10</span><span>±20</span><span>±30</span><span>±40</span><span>±50</span></div>
+    </div></div>
+
+    <button class="save-btn" onclick="saveSettings()">Save Profile Changes</button>
+    <button class="so-btn" onclick="resetPassword()">Reset Password</button>
+    <button class="so-btn" onclick="signOut()">Sign Out</button>
+    <button class="del-btn" onclick="S.showDelConfirm=true;render()">Delete My Account</button>
+    <div style="height:18px"></div>
+  </div></div>`;
+}
+
+/* ── OVERLAYS */
+function rMatchModal(){
+  const pt=S.pendingPt,name=`${esc(pt.first_name)} ${esc(pt.last_initial)}.`;
+  const pJ=JSON.stringify(pt).replace(/"/g,'&quot;');
+  return `<div class="overlay"><div class="mm">
+    <div class="mm-em">🎉</div>
+    <div class="mm-ttl">It's a Match!</div>
+    <p class="mm-sub">You and <strong>${name}</strong> both want to study together!</p>
+    <div class="mm-avs">
+      <div class="mm-av">${S.profile?.avatar_url?`<img src="${esc(S.profile.avatar_url)}" alt=""/>`:initials(S.profile)}</div>
+      <span style="font-size:22px;color:var(--match)">♥</span>
+      <div class="mm-av">${pt.avatar_url?`<img src="${esc(pt.avatar_url)}" alt="" loading="lazy"/>`:initials(pt)}</div>
+    </div>
+    <button class="modal-btn prim" onclick="acceptMatch(${pJ})">Start Studying Together</button>
+    <button class="modal-btn sec" onclick="dismissMatch()">Maybe Later</button>
+  </div></div>`;
+}
+
+function rReportModal(){
+  const c=S.feed[S.fi],name=c?`${esc(c.first_name)} ${esc(c.last_initial)}.`:'this user';
+  return `<div class="overlay">
+    <div style="position:absolute;inset:0" onclick="S.showReport=false;render()"></div>
+    <div class="bsheet" onclick="event.stopPropagation()">
+      <div class="sh-hdl"></div>
+      <p class="sh-ttl">Report ${name}</p>
+      <p class="sh-sub">Our support team is notified immediately.</p>
+      <select class="rep-sel" onchange="S.repReason=this.value">
+        <option value="spam" ${S.repReason==='spam'?'selected':''}>Spam or fake profile</option>
+        <option value="troll" ${S.repReason==='troll'?'selected':''}>Troll or harassment</option>
+        <option value="inappropriate" ${S.repReason==='inappropriate'?'selected':''}>Inappropriate content</option>
+        <option value="other" ${S.repReason==='other'?'selected':''}>Other</option>
+      </select>
+      <button class="modal-btn dang" onclick="submitReport()">Submit Report</button>
+      <button class="modal-btn sec" onclick="S.showReport=false;render()">Cancel</button>
+    </div>
+  </div>`;
+}
+
+function rUnmatchConfirm(){
+  return `<div class="overlay"><div class="modal">
+    <div class="modal-ttl">Unmatch?</div>
+    <p class="modal-body">This will archive your conversation and prevent this profile from appearing in your discovery feed again. This cannot be undone.</p>
+    <button class="modal-btn dang" onclick="doUnmatch()">Yes, unmatch</button>
+    <button class="modal-btn sec" onclick="S.showUnmatch=false;render()">Cancel</button>
+  </div></div>`;
+}
+
+function rDelConfirm(){
+  return `<div class="overlay"><div class="modal">
+    <div class="modal-ttl" style="color:var(--danger)">Delete account?</div>
+    <p class="modal-body">This permanently and irreversibly deletes your profile, all matches, messages, and interactions. Complies with Apple's data deletion requirements.</p>
+    <button class="modal-btn dang" onclick="deleteAccount()">Yes, delete everything</button>
+    <button class="modal-btn sec" onclick="S.showDelConfirm=false;render()">Cancel</button>
+  </div></div>`;
+}
+
+async function acceptMatch(pt){
+  S.showMM=false;S.pendingPt=null;
+  const uid=S.session?.user.id;
+  const{data:m}=await sb.from('matches').select('id').or(`user_one.eq.${uid},user_two.eq.${uid}`).eq('status','active').order('created_at',{ascending:false}).limit(1).single();
+  if(m)openChatView(m.id,pt,false);else{await loadMatches();gotoTab('matches');}
+  if(S.matchQueue.length)setTimeout(nextMatch,300);else render();
+}
+function dismissMatch(){S.showMM=false;S.pendingPt=null;if(S.matchQueue.length)setTimeout(nextMatch,300);else render();}
+
+function bindPostRender(){
+  document.querySelectorAll('input[type=range]').forEach(el=>setSlidePct(el));
+  const ci=$('cinp');if(ci)ci.focus();
+  updateSendBtn();
+}
+
+
+/* ── AUTH HELPERS — update specific DOM nodes without full re-render
+   This prevents the keyboard from dismissing on every keystroke */
+function switchAuthMode(){
+  S.authMode=S.authMode==='signup'?'login':'signup';
+  S.authErr=null;
+  render();
+}
+function updateAuthPreview(){
+  const fn=S.af.first||'Alex';
+  const ln=S.af.last||'Kim';
+  const preview=fn+' '+(ln.charAt(0)||'K').toUpperCase()+'.';
+  // Update name preview text
+  const el=document.getElementById('auth-preview');
+  if(el)el.textContent=preview;
+  // Update button disabled state
+  updateAuthSubmit();
+}
+function updateAuthSubmit(){
+  const btn=document.getElementById('auth-submit');
+  if(!btn)return;
+  const isUp=S.authMode==='signup';
+  const ok=!isUp||(S.ac.name&&S.ac.notif&&S.ac.age&&S.af.email&&S.af.password);
+  btn.disabled=S.authLoading||!ok;
+}
+function toggleConsent(key){
+  S.ac[key]=!S.ac[key];
+  // Toggle CSS class on the row without rebuilding DOM
+  const row=document.getElementById('con-'+key);
+  if(row)row.classList.toggle('ck',S.ac[key]);
+  updateAuthSubmit();
+}
+/* ── HELPERS */
+function updateSendBtn(){
+  const btn=document.getElementById('csend-btn');
+  if(!btn)return;
+  btn.disabled=!S.chatInput.trim()&&!S.mediaPending;
+}
+function setSfGrade(g){
+  if(!S.sf)return;
+  S.sf.gradeFilter=(S.sf.gradeFilter===g)?null:g;
+  render();
+}
+function toggleSfStr(s){
+  if(!S.sf)return;
+  if((S.sf.strengths||[]).includes(s))S.sf.strengths=(S.sf.strengths||[]).filter(x=>x!==s);
+  else if((S.sf.strengths||[]).length<4){if(!S.sf.strengths)S.sf.strengths=[];S.sf.strengths.push(s);}
+  render();
+}
+function toggleSfWk(s){
+  if(!S.sf)return;
+  if((S.sf.weaknesses||[]).includes(s))S.sf.weaknesses=(S.sf.weaknesses||[]).filter(x=>x!==s);
+  else if((S.sf.weaknesses||[]).length<4){if(!S.sf.weaknesses)S.sf.weaknesses=[];S.sf.weaknesses.push(s);}
+  render();
+}
+function updatePips(val){
+  document.querySelectorAll('.filt-pips .fp').forEach((el,i)=>{
+    el.classList.toggle('on',(i+1)*10<=parseInt(val));
+  });
+}
+function setGradeFilter(g){S.gradeFilter=g;S.feed=[];S.fi=0;loadFeed();}
+function updateUnreadBadge(){}
+function rLightbox(){
+  const src=esc(S.lightboxSrc||'');
+  return '<div class="lightbox" onclick="S.showLightbox=false;render()">'
+    +'<button class="lightbox-close" onclick="S.showLightbox=false;render()">'
+    +'<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+    +'</button>'
+    +(S.lightboxType==='video'
+      ?'<video src="'+src+'" controls autoplay playsinline onclick="event.stopPropagation()" style="max-width:100%;max-height:88%;border-radius:12px"></video>'
+      :'<img src="'+src+'" onclick="event.stopPropagation()" style="max-width:100%;max-height:88%;border-radius:12px;object-fit:contain"/>')
+    +'</div>';
+}
+async function registerPush(){
+  if(!('Notification' in window)||location.protocol!=='https:')return;
+  try{const p=await Notification.requestPermission();if(p==='granted')toast('Push notifications enabled!',2000);}
+  catch(e){}
+}
+async function loadUnreadCount(){
+  if(!S.session)return;
+  const uid=S.session.user.id;
+  try{
+    const{data:myMatches}=await sb.from('matches').select('id')
+      .or('user_one.eq.'+uid+',user_two.eq.'+uid).eq('status','active');
+    if(!myMatches?.length){S.unreadCount=0;S.unreadPerMatch={};return;}
+    const mids=myMatches.map(m=>m.id);
+    const now=new Date().toISOString();
+    const results=await Promise.all(mids.map(mid=>
+      sb.from('messages').select('match_id',{count:'exact',head:true})
+        .eq('match_id',mid).neq('sender_id',uid)
+        .gt('created_at',S.lastRead[mid]||(()=>{S.lastRead[mid]=now;try{localStorage.setItem('pp_lastread',JSON.stringify(S.lastRead));}catch(e){}return now;})())
+    ));
+    const pm={};
+    mids.forEach((mid,i)=>{
+      if(results[i].count>0){
+        pm[mid]=results[i].count;
+      }else{
+        // No unread for this match — update lastRead to now
+        // so after a refresh, we don't re-count old messages
+        if(!S.lastRead[mid])S.lastRead[mid]=now;
+      }
+    });
+    S.unreadPerMatch=pm;
+    S.unreadCount=Object.values(pm).reduce((a,b)=>a+b,0);
+    // Persist lastRead so refresh doesn't reset unread state
+    try{localStorage.setItem('pp_lastread',JSON.stringify(S.lastRead));}catch(e){}
+  }catch(e){
+    console.error('unread:',e);
+    S.unreadCount=0;S.unreadPerMatch={};
+  }
+  // Re-render match list so badges appear immediately
+  if(S.tab==='matches'&&!S.openChat)render();
+}
+
+/* ── BOOTSTRAP */
+// JS backup for rotate detection (some browsers handle orientation CSS inconsistently)
+function checkOrientation(){
+  const overlay=document.getElementById('rotate-overlay');
+  const root=document.getElementById('root');
+  if(!overlay||!root)return;
+  const isLandscape=window.innerWidth>window.innerHeight;
+  // pointer:coarse = touch device (iPad/iPhone), pointer:fine = mouse (laptop/desktop)
+  const isTouch=window.matchMedia('(pointer:coarse)').matches;
+  // All iPad landscape heights max out at 1032px (iPad Pro 13")
+  // Desktop monitors are 1080px+ tall
+  const isTabletHeight=window.innerHeight<=1079;
+  const shouldRotate=isLandscape&&isTouch&&isTabletHeight;
+  if(shouldRotate){
+    overlay.style.display='flex';
+    root.style.display='none';
+  }else{
+    overlay.style.display='';
+    root.style.display='';
+  }
+}
+window.addEventListener('resize',checkOrientation);
+window.addEventListener('orientationchange',()=>setTimeout(checkOrientation,100));
+checkOrientation();
+
+// ── KEYBOARD FIX — prevent iOS from shifting the whole page up when
+// the on-screen keyboard opens. We track the real visible height via
+// visualViewport and feed it into a CSS variable that .phone uses,
+// so the actual app frame shrinks correctly (nav + input bar dock
+// right above the keyboard) instead of the OS translating the page.
+function setupKeyboardFix(){
+  if(!window.visualViewport)return;
+  function onVVChange(){
+    document.documentElement.style.setProperty('--app-height',window.visualViewport.height+'px');
+    if(window.scrollY!==0)window.scrollTo(0,0);
+    if(S.openChat)scrollChat();
+  }
+  window.visualViewport.addEventListener('resize',onVVChange);
+  window.visualViewport.addEventListener('scroll',onVVChange);
+  onVVChange();
+}
+
+(async()=>{
+  setupKeyboardFix();
+  setInterval(updateClock,30000);
+  S.authErr=null;
+  // If arriving from an email confirmation link, go to onboarding
+  const hashParams=new URLSearchParams(window.location.hash.replace('#',''));
+  const queryParams=new URLSearchParams(window.location.search);
+  const recTokenHash=queryParams.get('token_hash');
+  const recType=queryParams.get('type');
+  if(recTokenHash&&recType==='recovery'){
+    window.history.replaceState(null,'',window.location.pathname);
+    const{data,error}=await sb.auth.verifyOtp({token_hash:recTokenHash,type:'recovery'});
+    if(error){
+      alert('This password reset link has expired or already been used. Please contact support for a new one.');
+    }
+    // Always stop here regardless of outcome — never fall through to initApp
+    S.session=data?.session||null;
+    S.showRecovery=!!data?.session;
+    render();
+    return;
+  }
+  const isRecovery=
+    hashParams.get('type')==='recovery'||
+    queryParams.get('type')==='recovery'||
+    hashParams.has('access_token')&&hashParams.get('type')!=='signup';
+  if(isRecovery){
+    window.history.replaceState(null,'',window.location.pathname);
+    const{data:{session:recSess}}=await sb.auth.getSession();
+    if(recSess){
+      S.session=recSess;
+      S.showRecovery=true;
+      render();
+      return;
+    }
+  }
+  const isEmailConfirm=
+    hashParams.get('type')==='signup'||
+    hashParams.get('type')==='email_confirmation'||
+    queryParams.get('type')==='signup'||
+    queryParams.get('type')==='email_confirmation'||
+    queryParams.has('code');
+  if(isEmailConfirm){
+    window.history.replaceState(null,'',window.location.pathname);
+    await sb.auth.signOut();
+    S.session=null;
+    S.authErr=null;
+    S.showVerified=true;
+    render();
+    return;
+  }
+
+  const{data:{session}}=await sb.auth.getSession();
+  S.session=session;
+  sb.auth.onAuthStateChange((_e,sess)=>{
+    S.session=sess;
+    if(!sess){
+      S.profile=null;
+      S.obStep=1;
+      $('nav').style.display='none';
+      render();
+    }
+  });
+  if(session){
+    const{data:{user},error}=await sb.auth.getUser();
+    if(error||!user){
+      await sb.auth.signOut();
+      S.session=null;
+      render();
+    }else{
+      await initApp();
+    }
+  }else{
+    render();
+  }
+})();
+</script>
+</body>
+</html>
